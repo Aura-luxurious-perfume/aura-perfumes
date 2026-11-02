@@ -10,55 +10,35 @@
             background-color: #111;
             color: #fff;
             margin: 0;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
         }
         .container {
             max-width: 500px;
             margin: auto;
             background: #1a1a1a;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
         h1 { color: #d4af37; }
         .box {
             background: #252525;
-            margin: 10px 0;
-            padding: 12px;
+            margin: 15px 0;
+            padding: 15px;
             border-radius: 8px;
         }
-        .options {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-        .perfume-btn {
-            background: #333;
-            color: #fff;
-            border: 1px solid #d4af37;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .perfume-btn.active {
-            background: #d4af37;
-            color: #111;
-            font-weight: bold;
-        }
         .order-btn {
+            display: block;
             background: #25D366;
             color: white;
-            border: none;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
             font-weight: bold;
-            cursor: pointer;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
@@ -66,40 +46,18 @@
 
     <div class="container">
         <h1>AURA PERFUMES</h1>
-        <p>اختر بوكس العطور الخاص بك</p>
+        <p>فخامة العطور بين يديك</p>
 
         <div class="box">
             <h3>البوكس الرجالي (3 × 15 مل)</h3>
-            <p>اختر العطور:</p>
-            <div class="options">
-                <button class="perfume-btn" onclick="selectPerfume(this)">Sauvage</button>
-                <button class="perfume-btn" onclick="selectPerfume(this)">Aventus</button>
-                <button class="perfume-btn" onclick="selectPerfume(this)">Royal Oud</button>
-                <button class="perfume-btn" onclick="selectPerfume(this)">Black Dakkar</button>
-            </div>
+            <p>التشكيلة الفاخرة (Sauvage, Aventus, Royal Oud)</p>
         </div>
 
-        <button class="order-btn" onclick="sendWhatsApp()">تأكيد الطلب عبر الواتساب</button>
+        <!-- زر الواتساب المباشر -->
+        <a href="https://wa.me/201109138404?text=مرحباً، أريد طلب بوكس عطور AURA" class="order-btn" target="_blank">
+            اطلب الآن عبر الواتساب
+        </a>
     </div>
 
-    <script>
-        let chosen = [];
-        
-        function selectPerfume(btn) {
-            btn.classList.toggle('active');
-            let name = btn.innerText;
-            if(btn.classList.contains('active')) {
-                if(!chosen.includes(name)) chosen.push(name);
-            } else {
-                chosen = chosen.filter(item => item !== name);
-            }
-        }
-
-        function sendWhatsApp() {
-            let phone = "201109138404";
-            let text = `أريد طلب بوكس عطور AURA الأنواع التالية: ${chosen.join(', ')}`;
-            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-        }
-    </script>
 </body>
 </html>
