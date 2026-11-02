@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | عطور الفخامة</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #0b0b0b;
+            color: #fff;
+            margin: 0;
+            padding: 15px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #161616;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        h1 { color: #d4af37; letter-spacing: 2px; }
+        .box {
+            background: #202020;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: right;
+        }
+        .box h3 { color: #d4af37; margin-top: 0; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .btn-item {
+            background: #2a2a2a;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-item.active {
+            background: #d4af37;
+            color: #0b0b0b;
+            font-weight: bold;
+            border-color: #d4af37;
+        }
+        .form-group {
+            margin-top: 15px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            color: #d4af37;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .order-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>A U R A</h1>
+        <p style="color: #aaa; font-size: 13px;">عطور الفخامة الاستثنائية</p>
+
+        <div class="box">
+            <h3>البوكسات المتوفرة</h3>
+            <p style="font-size: 12px; color: #ccc;">اختر العطور أو البوكس المفضل لديك:</p>
+            <div class="grid">
+                <button class="btn-item" onclick="toggleSelect(this, 'البوكس الرجالي 3x15ml')">البوكس الرجالي</button>
+                <button class="btn-item" onclick="toggleSelect(this, 'البوكس النسائي 3x15ml')">البوكس النسائي</button>
+                <button class="btn-item" onclick="toggleSelect(this, 'Sauvage - 50ml')">عطر Sauvage</button>
+                <button class="btn-item" onclick="toggleSelect(this, 'Aventus - 50ml')">عطر Aventus</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>الاسم:</label>
+            <input type="text" id="cName" placeholder="اكتب اسمك هنا...">
+        </div>
+        <div class="form-group">
+            <label>رقم الهاتف:</label>
+            <input type="tel" id="cPhone" placeholder="رقم الموبايل للتواصل...">
+        </div>
+        <div class="form-group">
+            <label>العنوان:</label>
+            <input type="text" id="cAddress" placeholder="المدينة والشارع...">
+        </div>
+
+        <button class="order-btn" onclick="sendOrder()">تأكيد وإرسال الطلب عبر الواتساب</button>
+    </div>
+
+    <script>
+        let selected = [];
+        function toggleSelect(btn, name) {
+            btn.classList.toggle('active');
+            if(btn.classList.contains('active')) {
+                if(!selected.includes(name)) selected.push(name);
+            } else {
+                selected = selected.filter(item => item !== name);
+            }
+        }
+
+        function sendOrder() {
+            let name = document.getElementById('cName').value.trim();
+            let phone = document.getElementById('cPhone').value.trim();
+            let address = document.getElementById('cAddress').value.trim();
+
+            if(!name || !phone || !address) {
+                alert("برجاء ملء جميع بيانات الشحن (الاسم، الهاتف، العنوان)!");
+                return;
+            }
+            if(selected.length === 0) {
+                alert("برجاء اختيار منتج واحد على الأقل!");
+                return;
+            }
+
+            let myPhone = "201109138404";
+            let text = `*طلب جديد من موقع AURA*%0A` +
+                       `👤 الاسم: ${name}%0A` +
+                       `📞 الهاتف: ${phone}%0A` +
+                       `📍 العنوان: ${address}%0A` +
+                       `🛍️ المنتجات: ${selected.join(', ')}`;
+
+            window.open(`https://wa.me/${myPhone}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
