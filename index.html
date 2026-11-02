@@ -117,7 +117,6 @@
             border: 1px solid var(--border-color);
             padding: 12px 8px;
             border-radius: 10px;
-            cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             position: relative;
@@ -129,12 +128,6 @@
             border-radius: 8px;
             margin-bottom: 6px;
             border: 1px solid #333;
-        }
-        .perfume-card.active, .box-card.active {
-            border-color: var(--gold);
-            background: #232012;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-            transform: translateY(-2px);
         }
         .perfume-card h4, .box-card h4 {
             margin: 4px 0;
@@ -156,6 +149,39 @@
             border-radius: 4px;
             display: inline-block;
         }
+        /* أزرار التحكم بالكمية (+ و -) */
+        .qty-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+            background: #222;
+            padding: 4px;
+            border-radius: 6px;
+            border: 1px solid #333;
+        }
+        .qty-btn {
+            background: var(--gold);
+            color: #0b0b0b;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-display {
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            min-width: 20px;
+        }
+
         /* صندوق خيارات البوكسات التفاعلية */
         .customization-box {
             background: #181818;
@@ -353,20 +379,30 @@
             </div>
         </div>
 
-        <!-- اختيار البوكسات التفاعلي -->
+        <!-- اختيار البوكسات التفاعلي مع التحكم بالكمية -->
         <div class="section-title">اختر البوكسات المفضلة لديك</div>
         <div class="grid">
-            <div class="box-card" id="mensBoxCard" onclick="selectBox('mens', 200)">
+            <div class="box-card" id="mensBoxCard">
                 <img src="mens-box.jpg" alt="البوكس الرجالي">
                 <h4>البوكس الرجالي</h4>
                 <p>اختر 3 عطور</p>
                 <div class="price-tag">200 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changeBoxQty('mens', -1)">-</button>
+                    <span class="qty-display" id="mensBoxQty">0</span>
+                    <button class="qty-btn" onclick="changeBoxQty('mens', 1)">+</button>
+                </div>
             </div>
-            <div class="box-card" id="womensBoxCard" onclick="selectBox('womens', 200)">
+            <div class="box-card" id="womensBoxCard">
                 <img src="بوكس حريمي.jpg" alt="البوكس النسائي">
                 <h4>البوكس النسائي (روزشولد)</h4>
                 <p>عطرين + Harmony</p>
                 <div class="price-tag">200 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changeBoxQty('womens', -1)">-</button>
+                    <span class="qty-display" id="womensBoxQty">0</span>
+                    <button class="qty-btn" onclick="changeBoxQty('womens', 1)">+</button>
+                </div>
             </div>
         </div>
 
@@ -396,50 +432,85 @@
             </div>
         </div>
 
-        <!-- تشكيلة عطور 50 مل الفردية -->
+        <!-- تشكيلة عطور 50 مل الفردية مع التحكم بالكمية -->
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
-            <div class="perfume-card" onclick="toggleCard(this, 'Sauvage - 50ml', 250)">
+            <div class="perfume-card" id="card-Sauvage-50ml">
                 <img src="perfume-50ml.jpg" alt="Sauvage">
                 <h4>Sauvage</h4>
                 <p>انتعاش وهيبة</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changePerfumeQty('Sauvage - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-Sauvage-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('Sauvage - 50ml', 250, 1)">+</button>
+                </div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Aventus - 50ml', 250)">
+            <div class="perfume-card" id="card-Aventus-50ml">
                 <img src="perfume-50ml.jpg" alt="Aventus">
                 <h4>Aventus</h4>
                 <p>ملكي وثابت</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changePerfumeQty('Aventus - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-Aventus-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('Aventus - 50ml', 250, 1)">+</button>
+                </div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, '1 Million - 50ml', 250)">
+            <div class="perfume-card" id="card-1-Million-50ml">
                 <img src="perfume-50ml.jpg" alt="1 Million">
                 <h4>1 Million</h4>
                 <p>عبق الفخامة</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changePerfumeQty('1 Million - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-1-Million-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('1 Million - 50ml', 250, 1)">+</button>
+                </div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Black Dakkar - 50ml', 250)">
+            <div class="perfume-card" id="card-Black-Dakkar-50ml">
                 <img src="perfume-50ml.jpg" alt="Black Dakkar">
                 <h4>Black Dakkar</h4>
                 <p>كلاسيكي جريء</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changePerfumeQty('Black Dakkar - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-Black-Dakkar-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('Black Dakkar - 50ml', 250, 1)">+</button>
+                </div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Intense - 50ml', 250)">
+            <div class="perfume-card" id="card-Intense-50ml">
                 <img src="perfume-50ml.jpg" alt="Intense">
                 <h4>Intense</h4>
                 <p>فوحان عالي</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changePerfumeQty('Intense - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-Intense-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('Intense - 50ml', 250, 1)">+</button>
+                </div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Good Girl - 50ml', 250)">
+            <div class="perfume-card" id="card-Good-Girl-50ml">
                 <img src="جودجيرل.jpg" alt="Good Girl">
                 <h4>Good Girl</h4>
                 <p>سحر وأنوثة</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changePerfumeQty('Good Girl - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-Good-Girl-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('Good Girl - 50ml', 250, 1)">+</button>
+                </div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Harmony - 50ml', 250)" style="grid-column: span 2;">
+            <div class="perfume-card" id="card-Harmony-50ml" style="grid-column: span 2;">
                 <img src="هارموني.jpg" alt="Harmony" style="height: 120px;">
                 <h4>Harmony</h4>
                 <p>عطر AURA الخاص الفاخر</p>
                 <div class="price-tag">250 ج.م</div>
+                <div class="qty-control" style="max-width: 200px; margin: 8px auto 0;">
+                    <button class="qty-btn" onclick="changePerfumeQty('Harmony - 50ml', 250, -1)">-</button>
+                    <span class="qty-display" id="qty-Harmony-50ml">0</span>
+                    <button class="qty-btn" onclick="changePerfumeQty('Harmony - 50ml', 250, 1)">+</button>
+                </div>
             </div>
         </div>
 
@@ -570,39 +641,55 @@
             showSlide(slideIndex);
         }, 4000);
 
-        // متغيرات السلة
-        let selectedBoxes = []; // مصفوفة للبوكسات
+        // متغيرات النظام بالكميات
+        let boxesData = {
+            mens: { name: "البوكس الرجالي (3×15 مل)", price: 200, qty: 0 },
+            womens: { name: "البوكس النسائي - روزجولد (3×15 مل)", price: 200, qty: 0 }
+        };
+
+        let perfumesData = {
+            'Sauvage - 50ml': { name: 'Sauvage', price: 250, qty: 0 },
+            'Aventus - 50ml': { name: 'Aventus', price: 250, qty: 0 },
+            '1 Million - 50ml': { name: '1 Million', price: 250, qty: 0 },
+            'Black Dakkar - 50ml': { name: 'Black Dakkar', price: 250, qty: 0 },
+            'Intense - 50ml': { name: 'Intense', price: 250, qty: 0 },
+            'Good Girl - 50ml': { name: 'Good Girl', price: 250, qty: 0 },
+            'Harmony - 50ml': { name: 'Harmony', price: 250, qty: 0 }
+        };
+
         let selectedMensPerfumes = [];
         let selectedWomensHarmony = null;
-        let selectedPerfumes = []; // العطور الفردية {name, price}
 
-        function selectBox(type, price) {
-            const mensCard = document.getElementById('mensBoxCard');
-            const womensCard = document.getElementById('womensBoxCard');
-            const mensCustom = document.getElementById('mensCustomization');
-            const womensCustom = document.getElementById('womensCustomization');
+        // التحكم بكميات البوكسات
+        function changeBoxQty(type, change) {
+            if (boxesData[type].qty + change >= 0) {
+                boxesData[type].qty += change;
+                document.getElementById(type + 'BoxQty').innerText = boxesData[type].qty;
+                
+                const card = document.getElementById(type + 'BoxCard');
+                const customBox = document.getElementById(type + 'Customization');
 
-            let name = (type === 'mens') ? "البوكس الرجالي (3×15 مل)" : "البوكس النسائي - روزجولد (3×15 مل)";
-            
-            // التحقق هل البوكس مضاف مسبقاً أم لا لإضافته أو إلغائه
-            let existingIndex = selectedBoxes.findIndex(b => b.type === type);
-            if(existingIndex > -1) {
-                selectedBoxes.splice(existingIndex, 1);
-                if(type === 'mens') {
-                    mensCard.classList.remove('active');
-                    mensCustom.style.display = 'none';
+                if (boxesData[type].qty > 0) {
+                    card.classList.add('active');
+                    customBox.style.display = 'block';
                 } else {
-                    womensCard.classList.remove('active');
-                    womensCustom.style.display = 'none';
+                    card.classList.remove('active');
+                    customBox.style.display = 'none';
                 }
-            } else {
-                selectedBoxes.push({type: type, name: name, price: price});
-                if(type === 'mens') {
-                    mensCard.classList.add('active');
-                    mensCustom.style.display = 'block';
+            }
+        }
+
+        // التحكم بكميات العطور الفردية
+        function changePerfumeQty(key, price, change) {
+            if (perfumesData[key].qty + change >= 0) {
+                perfumesData[key].qty += change;
+                document.getElementById('qty-' + key.replace(/ /g, '-')).innerText = perfumesData[key].qty;
+                
+                const card = document.getElementById('card-' + key.replace(/ /g, '-'));
+                if (perfumesData[key].qty > 0) {
+                    card.classList.add('active');
                 } else {
-                    womensCard.classList.add('active');
-                    womensCustom.style.display = 'block';
+                    card.classList.remove('active');
                 }
             }
         }
@@ -628,55 +715,55 @@
             selectedWomensHarmony = name;
         }
 
-        function toggleCard(card, name, price) {
-            card.classList.toggle('active');
-            if(card.classList.contains('active')) {
-                selectedPerfumes.push({name: name, price: price});
-            } else {
-                let index = selectedPerfumes.findIndex(p => p.name === name);
-                if(index > -1) selectedPerfumes.splice(index, 1);
-            }
-        }
-
-        // حساب إجمالي السعر للمنتجات
+        // حساب إجمالي المنتجات والكميات
         function calculateProductsTotal() {
             let total = 0;
-            selectedBoxes.forEach(b => total += b.price);
-            selectedPerfumes.forEach(p => total += p.price);
+            for (let k in boxesData) {
+                total += boxesData[k].qty * boxesData[k].price;
+            }
+            for (let k in perfumesData) {
+                total += perfumesData[k].qty * perfumesData[k].price;
+            }
             return total;
         }
 
-        // فتح نافذة إتمام الطلب وتعبئة ملخص السلة
+        // فتح نافذة الشيك وملخص السلة
         function openCheckoutModal() {
-            if(selectedBoxes.length === 0 && selectedPerfumes.length === 0) {
+            let totalBoxesQty = boxesData.mens.qty + boxesData.womens.qty;
+            let totalPerfumesQty = 0;
+            for (let k in perfumesData) totalPerfumesQty += perfumesData[k].qty;
+
+            if (totalBoxesQty === 0 && totalPerfumesQty === 0) {
                 alert("برجاء اختيار بوكس أو عطر واحد على الأقل من القائمة!");
                 return;
             }
 
-            let hasMens = selectedBoxes.some(b => b.type === 'mens');
-            let hasWomens = selectedBoxes.some(b => b.type === 'womens');
-
-            if(hasMens && selectedMensPerfumes.length < 3) {
+            if (boxesData.mens.qty > 0 && selectedMensPerfumes.length < 3) {
                 alert("برجاء اختيار 3 عطور كاملة للبوكس الرجالي!");
                 return;
             }
 
-            if(hasWomens && !selectedWomensHarmony) {
+            if (boxesData.womens.qty > 0 && !selectedWomensHarmony) {
                 alert("برجاء اختيار عطر Harmony للبوكس النسائي!");
                 return;
             }
 
-            // بناء واجهة تفاصيل السلة داخل الشيك
+            // بناء واجهة تفاصيل السلة
             let cartHTML = "";
-            selectedBoxes.forEach(b => {
-                cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${b.name}</span><span class="cart-item-price">${b.price} ج.م</span></div>`;
-            });
-            selectedPerfumes.forEach(p => {
-                cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${p.name} (50 مل)</span><span class="cart-item-price">${p.price} ج.م</span></div>`;
-            });
+            for (let k in boxesData) {
+                if (boxesData[k].qty > 0) {
+                    let itemTotal = boxesData[k].qty * boxesData[k].price;
+                    cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${boxesData[k].name} (×${boxesData[k].qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
+                }
+            }
+            for (let k in perfumesData) {
+                if (perfumesData[k].qty > 0) {
+                    let itemTotal = perfumesData[k].qty * perfumesData[k].price;
+                    cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${perfumesData[k].name} 50مل (×${perfumesData[k].qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
+                }
+            }
             document.getElementById('cartSummaryList').innerHTML = cartHTML;
 
-            // تحديث الحساب الافتراضي بدون شحن
             updateSummaryDisplay(0);
             document.getElementById('checkoutModal').style.display = 'flex';
         }
@@ -685,7 +772,6 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
 
-        // تغيير خيارات الشحن
         function handleCityChange() {
             let city = document.getElementById('custCity').value;
             let cairoFields = document.getElementById('cairoFields');
@@ -722,7 +808,7 @@
             document.getElementById('orderSummaryText').innerHTML = summaryHTML;
         }
 
-        // إرسال الطلب للواتساب بتنسيق دقيق
+        // إرسال الطلب للواتساب بالكميات والتفاصيل الكاملة
         function sendWhatsAppOrder() {
             let phone = document.getElementById('custPhone').value.trim();
             let city = document.getElementById('custCity').value;
@@ -759,22 +845,28 @@
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
                             `📞 *الهاتف:* ${phone}\n` +
                             `📍 *العنوان:* ${addressDetails}\n\n` +
-                            `🛍️ *تفاصيل الطلب:*\n`;
+                            `🛍️ *تفاصيل الطلب والكميات:*\n`;
 
-            selectedBoxes.forEach(b => {
-                orderText += `▪️ *${b.name}* (${b.price} ج.م)\n`;
-                if(b.type === 'mens') {
-                    orderText += `  - العطور المختارة: ${selectedMensPerfumes.join(', ')}\n`;
-                } else if(b.type === 'womens') {
-                    orderText += `  - عطور البوكس: Good Girl + Libre + ${selectedWomensHarmony}\n`;
+            if(boxesData.mens.qty > 0) {
+                orderText += `▪️ *${boxesData.mens.name}* (العدد: ${boxesData.mens.qty}) - السعر: ${boxesData.mens.qty * boxesData.mens.price} ج.م\n`;
+                orderText += `  - العطور المختارة: ${selectedMensPerfumes.join(', ')}\n`;
+            }
+            if(boxesData.womens.qty > 0) {
+                orderText += `▪️ *${boxesData.womens.name}* (العدد: ${boxesData.womens.qty}) - السعر: ${boxesData.womens.qty * boxesData.womens.price} ج.م\n`;
+                orderText += `  - عطور البوكس: Good Girl + Libre + ${selectedWomensHarmony}\n`;
+            }
+
+            let hasPerfumes = false;
+            let perfumesText = `▪️ *عطور 50 مل الفردية:*\n`;
+            for (let k in perfumesData) {
+                if (perfumesData[k].qty > 0) {
+                    hasPerfumes = true;
+                    perfumesText += `  - ${perfumesData[k].name} (العدد: ${perfumesData[k].qty}) - ${perfumesData[k].qty * perfumesData[k].price} ج.م\n`;
                 }
-            });
+            }
 
-            if(selectedPerfumes.length > 0) {
-                orderText += `▪️ *عطور 50 مل الفردية:*\n`;
-                selectedPerfumes.forEach(p => {
-                    orderText += `  - ${p.name} (${p.price} ج.م)\n`;
-                });
+            if(hasPerfumes) {
+                orderText += perfumesText;
             }
 
             orderText += `\n💵 *إجمالي المنتجات:* ${productsTotal} ج.م\n` +
