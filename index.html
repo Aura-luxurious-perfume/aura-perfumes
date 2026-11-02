@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AURA | عطور الفخامة</title>
     <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #0b0b0b;
+            --card-bg: #161616;
+            --light: #f4f4f4;
+        }
         body {
-            font-family: Tahoma, sans-serif;
-            background-color: #0b0b0b;
-            color: #fff;
+            font-family: 'Tahoma', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
             margin: 0;
             padding: 15px;
             text-align: center;
@@ -16,49 +22,129 @@
         .container {
             max-width: 500px;
             margin: auto;
-            background: #161616;
+            background: var(--card-bg);
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            border: 1px solid #222;
+        }
+        h1 {
+            color: var(--gold);
+            font-size: 26px;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        /* تصميم السلايدر العلوي */
+        .slider {
+            position: relative;
+            background: #202020;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
             border: 1px solid #333;
         }
-        h1 { color: #d4af37; letter-spacing: 2px; }
-        .box {
-            background: #202020;
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: right;
+        .slides-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
         }
-        .box h3 { color: #d4af37; margin-top: 0; }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+        .slide img {
+            width: 100%;
+            border-radius: 8px;
+            height: 220px;
+            object-fit: cover;
+            border: 1px solid #444;
+        }
+        .slide h3 {
+            color: var(--gold);
+            margin: 10px 0 5px;
+            font-size: 16px;
+        }
+        .slide p {
+            font-size: 12px;
+            color: #ccc;
+            margin: 0;
+        }
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #555;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .dot.active {
+            background: var(--gold);
+        }
+        /* أقسام العطور المنفصلة */
+        .section-title {
+            color: var(--gold);
+            font-size: 16px;
+            margin: 20px 0 10px;
+            text-align: right;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-top: 10px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-        .btn-item {
-            background: #2a2a2a;
-            color: #fff;
-            border: 1px solid #444;
+        .perfume-card {
+            background: #202020;
+            border: 1px solid #333;
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .perfume-card img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+        .perfume-card.active {
+            border-color: var(--gold);
+            background: #262315;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        .perfume-card h4 {
+            margin: 5px 0;
             font-size: 13px;
+            color: #fff;
         }
-        .btn-item.active {
-            background: #d4af37;
-            color: #0b0b0b;
-            font-weight: bold;
-            border-color: #d4af37;
+        .perfume-card p {
+            margin: 0;
+            font-size: 10px;
+            color: #999;
         }
+        /* نموذج بيانات العميل */
         .form-group {
-            margin-top: 15px;
+            margin-bottom: 12px;
             text-align: right;
         }
         .form-group label {
             display: block;
-            color: #d4af37;
             font-size: 12px;
+            color: var(--gold);
             margin-bottom: 5px;
         }
         .form-group input {
@@ -69,8 +155,10 @@
             color: #fff;
             border-radius: 6px;
             box-sizing: border-box;
+            font-size: 14px;
         }
         .order-btn {
+            display: block;
             background: #25D366;
             color: white;
             border: none;
@@ -81,6 +169,7 @@
             border-radius: 8px;
             margin-top: 20px;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
     </style>
 </head>
@@ -88,68 +177,130 @@
 
     <div class="container">
         <h1>A U R A</h1>
-        <p style="color: #aaa; font-size: 13px;">عطور الفخامة الاستثنائية</p>
+        <div class="subtitle">عطور الفخامة الاستثنائية</div>
 
-        <div class="box">
-            <h3>البوكسات المتوفرة</h3>
-            <p style="font-size: 12px; color: #ccc;">اختر العطور أو البوكس المفضل لديك:</p>
-            <div class="grid">
-                <button class="btn-item" onclick="toggleSelect(this, 'البوكس الرجالي 3x15ml')">البوكس الرجالي</button>
-                <button class="btn-item" onclick="toggleSelect(this, 'البوكس النسائي 3x15ml')">البوكس النسائي</button>
-                <button class="btn-item" onclick="toggleSelect(this, 'Sauvage - 50ml')">عطر Sauvage</button>
-                <button class="btn-item" onclick="toggleSelect(this, 'Aventus - 50ml')">عطر Aventus</button>
+        <!-- السلايدر العلوي للبوكسات (مع الصور المرفوعة) -->
+        <div class="slider">
+            <div class="slides-container" id="sliderContainer">
+                <div class="slide">
+                    <img src="mens-box.jpg" alt="البوكس الرجالي">
+                    <h3>البوكس الرجالي (3 × 15 مل)</h3>
+                    <p>مجموعة الفخامة والرجولة الطاغية</p>
+                </div>
+                <div class="slide">
+                    <img src="womens-box.jpg" alt="البوكس النسائي">
+                    <h3>البوكس النسائي - روز جولد (3 × 15 مل)</h3>
+                    <p>إصدار الروزشولد الساحر بثبات عالي</p>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <div class="dot active" onclick="currentSlide(0)"></div>
+                <div class="dot" onclick="currentSlide(1)"></div>
             </div>
         </div>
 
+        <!-- اختيار عطور الـ 50 مل المنفصلة بالصور -->
+        <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
+        <div class="grid">
+            <div class="perfume-card" onclick="toggleCard(this, 'Sauvage - 50ml')">
+                <img src="perfume-50ml.jpg" alt="Sauvage">
+                <h4>Sauvage</h4>
+                <p>انتعاش وهيبة مطلقة</p>
+            </div>
+            <div class="perfume-card" onclick="toggleCard(this, 'Aventus - 50ml')">
+                <img src="perfume-50ml.jpg" alt="Aventus">
+                <h4>Aventus</h4>
+                <p>ملكي وثابت لأقصى درجة</p>
+            </div>
+            <div class="perfume-card" onclick="toggleCard(this, 'Royal Oud - 50ml')">
+                <img src="perfume-50ml.jpg" alt="Royal Oud">
+                <h4>Royal Oud</h4>
+                <p>عبق العود الشرقي الأصيل</p>
+            </div>
+            <div class="perfume-card" onclick="toggleCard(this, 'Libre - 50ml')">
+                <img src="perfume-50ml.jpg" alt="Libre">
+                <h4>Libre</h4>
+                <p>أنوثة وجاذبية ناعمة</p>
+            </div>
+        </div>
+
+        <!-- بيانات الشحن -->
+        <div class="section-title">بيانات الشحن لتأكيد الطلب</div>
         <div class="form-group">
-            <label>الاسم:</label>
-            <input type="text" id="cName" placeholder="اكتب اسمك هنا...">
+            <label>الاسم الكامل:</label>
+            <input type="text" id="custName" placeholder="اكتب اسمك هنا...">
         </div>
         <div class="form-group">
             <label>رقم الهاتف:</label>
-            <input type="tel" id="cPhone" placeholder="رقم الموبايل للتواصل...">
+            <input type="tel" id="custPhone" placeholder="رقم الموبايل للتواصل...">
         </div>
         <div class="form-group">
-            <label>العنوان:</label>
-            <input type="text" id="cAddress" placeholder="المدينة والشارع...">
+            <label>العنوان بالتفصيل:</label>
+            <input type="text" id="custAddress" placeholder="المدينة، المحافظة، الشارع...">
         </div>
 
-        <button class="order-btn" onclick="sendOrder()">تأكيد وإرسال الطلب عبر الواتساب</button>
+        <button class="order-btn" onclick="sendWhatsAppOrder()">إرسال الطلب عبر الواتساب</button>
     </div>
 
     <script>
-        let selected = [];
-        function toggleSelect(btn, name) {
-            btn.classList.toggle('active');
-            if(btn.classList.contains('active')) {
-                if(!selected.includes(name)) selected.push(name);
+        // حركة السلايدر
+        let slideIndex = 0;
+        const slidesContainer = document.getElementById('sliderContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slideIndex = index;
+            slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === slideIndex);
+            });
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        setInterval(() => {
+            slideIndex = (slideIndex + 1) % 2;
+            showSlide(slideIndex);
+        }, 4000);
+
+        // اختيار العطور
+        let selectedPerfumes = [];
+        function toggleCard(card, name) {
+            card.classList.toggle('active');
+            if(card.classList.contains('active')) {
+                if(!selectedPerfumes.includes(name)) selectedPerfumes.push(name);
             } else {
-                selected = selected.filter(item => item !== name);
+                selectedPerfumes = selectedPerfumes.filter(item => item !== name);
             }
         }
 
-        function sendOrder() {
-            let name = document.getElementById('cName').value.trim();
-            let phone = document.getElementById('cPhone').value.trim();
-            let address = document.getElementById('cAddress').value.trim();
+        // إرسال الطلب للواتساب
+        function sendWhatsAppOrder() {
+            let name = document.getElementById('custName').value.trim();
+            let phone = document.getElementById('custPhone').value.trim();
+            let address = document.getElementById('custAddress').value.trim();
 
             if(!name || !phone || !address) {
-                alert("برجاء ملء جميع بيانات الشحن (الاسم، الهاتف، العنوان)!");
-                return;
-            }
-            if(selected.length === 0) {
-                alert("برجاء اختيار منتج واحد على الأقل!");
+                alert("برجاء إدخال (الاسم، رقم الهاتف، والعنوان) لتأكيد الطلب!");
                 return;
             }
 
-            let myPhone = "201109138404";
-            let text = `*طلب جديد من موقع AURA*%0A` +
-                       `👤 الاسم: ${name}%0A` +
-                       `📞 الهاتف: ${phone}%0A` +
-                       `📍 العنوان: ${address}%0A` +
-                       `🛍️ المنتجات: ${selected.join(', ')}`;
+            if(selectedPerfumes.length === 0) {
+                alert("برجاء اختيار عطر أو بوكس واحد على الأقل من القائمة!");
+                return;
+            }
 
-            window.open(`https://wa.me/${myPhone}?text=${text}`, '_blank');
+            let myWhatsApp = "201109138404";
+            let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
+                            `👤 *الاسم:* ${name}\n` +
+                            `📞 *الهاتف:* ${phone}\n` +
+                            `📍 *العنوان:* ${address}\n\n` +
+                            `🛍️ *المنتجات المطلوبة:*\n- ${selectedPerfumes.join('\n- ')}`;
+
+            let url = `https://wa.me/${myWhatsApp}?text=${encodeURIComponent(orderText)}`;
+            window.open(url, '_blank');
         }
     </script>
 </body>
