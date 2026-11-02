@@ -105,7 +105,7 @@
             gap: 10px;
             margin-bottom: 15px;
         }
-        .perfume-card {
+        .perfume-card, .box-card {
             background: #202020;
             border: 1px solid #333;
             padding: 10px;
@@ -114,27 +114,61 @@
             transition: 0.3s;
             text-align: center;
         }
-        .perfume-card img {
+        .perfume-card img, .box-card img {
             width: 100%;
             height: 90px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 5px;
         }
-        .perfume-card.active {
+        .perfume-card.active, .box-card.active {
             border-color: var(--gold);
             background: #262315;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
-        .perfume-card h4 {
+        .perfume-card h4, .box-card h4 {
             margin: 5px 0;
             font-size: 13px;
             color: #fff;
         }
-        .perfume-card p {
+        .perfume-card p, .box-card p {
             margin: 0;
             font-size: 10px;
             color: #999;
+        }
+        /* صندوق خيارات البوكسات التفاعلية */
+        .customization-box {
+            background: #1a1a1a;
+            border: 1px dashed var(--gold);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: right;
+            display: none;
+        }
+        .customization-box h4 {
+            color: var(--gold);
+            margin: 0 0 8px;
+            font-size: 13px;
+        }
+        .sub-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+        .sub-item {
+            background: #252525;
+            padding: 6px;
+            border-radius: 5px;
+            font-size: 11px;
+            border: 1px solid #444;
+            cursor: pointer;
+            text-align: center;
+        }
+        .sub-item.selected {
+            background: var(--gold);
+            color: #0b0b0b;
+            font-weight: bold;
         }
         /* نموذج بيانات العميل */
         .form-group {
@@ -199,7 +233,48 @@
             </div>
         </div>
 
-        <!-- تشكيلة عطور 50 مل الكاملة -->
+        <!-- اختيار البوكسات التفاعلي -->
+        <div class="section-title">اختر البوكس المفضل لديك</div>
+        <div class="grid">
+            <div class="box-card" id="mensBoxCard" onclick="selectBox('mens')">
+                <img src="mens-box.jpg" alt="البوكس الرجالي">
+                <h4>البوكس الرجالي</h4>
+                <p>اختر 3 عطور من تشكيلتك</p>
+            </div>
+            <div class="box-card" id="womensBoxCard" onclick="selectBox('womens')">
+                <img src="womens-box.jpg" alt="البوكس النسائي">
+                <h4>البوكس النسائي (روزشولد)</h4>
+                <p>عطرين أساسيين + عطر Harmony</p>
+            </div>
+        </div>
+
+        <!-- خيارات تخصيص البوكس الرجالي (3 عطور) -->
+        <div class="customization-box" id="mensCustomization">
+            <h4>اختر 3 عطور للبوكس الرجالي:</h4>
+            <div class="sub-grid" id="mensPerfumesList">
+                <div class="sub-item" onclick="toggleBoxItem(this, 'Sauvage')">Sauvage</div>
+                <div class="sub-item" onclick="toggleBoxItem(this, 'Aventus')">Aventus</div>
+                <div class="sub-item" onclick="toggleBoxItem(this, '1 Million')">1 Million</div>
+                <div class="sub-item" onclick="toggleBoxItem(this, 'Black Dakkar')">Black Dakkar</div>
+                <div class="sub-item" onclick="toggleBoxItem(this, 'Intense')">Intense</div>
+                <div class="sub-item" onclick="toggleBoxItem(this, 'Extreme')">Extreme</div>
+            </div>
+        </div>
+
+        <!-- خيارات تخصيص البوكس النسائي (عطرين أساسيين + Harmony) -->
+        <div class="customization-box" id="womensCustomization">
+            <h4>محتويات البوكس النسائي:</h4>
+            <p style="font-size: 11px; color: #aaa; margin: 0 0 8px;">• العطر الأول: Good Girl (أساسي)</p>
+            <p style="font-size: 11px; color: #aaa; margin: 0 0 8px;">• العطر الثاني: Libre (أساسي)</p>
+            <h4 style="margin-top: 10px;">اختر العطر الثالث للبوكس النسائي:</h4>
+            <div class="sub-grid" id="womensHarmonyList">
+                <div class="sub-item" onclick="selectHarmony(this, 'Harmony - Rose')">Harmony (روزي)</div>
+                <div class="sub-item" onclick="selectHarmony(this, 'Harmony - Vanilla')‍">Harmony (فانيلا)</div>
+                <div class="sub-item" onclick="selectHarmony(this, 'Harmony - Floral')">Harmony (فلورال)</div>
+            </div>
+        </div>
+
+        <!-- تشكيلة عطور 50 مل الفردية -->
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
             <div class="perfume-card" onclick="toggleCard(this, 'Sauvage - 50ml')">
@@ -212,10 +287,10 @@
                 <h4>Aventus</h4>
                 <p>ملكي وثابت لأقصى درجة</p>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Royal Oud - 50ml')">
-                <img src="perfume-50ml.jpg" alt="Royal Oud">
-                <h4>1 million</h4>
-                <p>عبق العود الشرقي الأصيل</p>
+            <div class="perfume-card" onclick="toggleCard(this, '1 Million - 50ml')">
+                <img src="perfume-50ml.jpg" alt="1 Million">
+                <h4>1 Million</h4>
+                <p>عبق الفخامة والجاذبية</p>
             </div>
             <div class="perfume-card" onclick="toggleCard(this, 'Black Dakkar - 50ml')">
                 <img src="perfume-50ml.jpg" alt="Black Dakkar">
@@ -227,10 +302,10 @@
                 <h4>Intense</h4>
                 <p>فوحان عالي ومركز</p>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Aqua - 50ml')">
-                <img src="perfume-50ml.jpg" alt="Aqua">
-                <h4>good girl</h4>
-                <p>نسمات بحرية منعشة</p>
+            <div class="perfume-card" onclick="toggleCard(this, 'Good Girl - 50ml')">
+                <img src="perfume-50ml.jpg" alt="Good Girl">
+                <h4>Good Girl</h4>
+                <p>سحر وأنوثة طاغية</p>
             </div>
             <div class="perfume-card" onclick="toggleCard(this, 'Dynamic - 50ml')">
                 <img src="perfume-50ml.jpg" alt="Dynamic">
@@ -285,7 +360,64 @@
             showSlide(slideIndex);
         }, 4000);
 
-        // اختيار العطور
+        // نظام اختيار البوكسات
+        let selectedBoxType = null;
+        let selectedMensPerfumes = [];
+        let selectedWomensHarmony = null;
+
+        function selectBox(type) {
+            const mensCard = document.getElementById('mensBoxCard');
+            const womensCard = document.getElementById('womensBoxCard');
+            const mensCustom = document.getElementById('mensCustomization');
+            const womensCustom = document.getElementById('womensCustomization');
+
+            if(selectedBoxType === type) {
+                // إلغاء التحديد لو ضغط تاني
+                selectedBoxType = null;
+                mensCard.classList.remove('active');
+                womensCard.classList.remove('active');
+                mensCustom.style.display = 'none';
+                womensCustom.style.display = 'none';
+            } else {
+                selectedBoxType = type;
+                if(type === 'mens') {
+                    mensCard.classList.add('active');
+                    womensCard.classList.remove('active');
+                    mensCustom.style.display = 'block';
+                    womensCustom.style.display = 'none';
+                } else {
+                    womensCard.classList.add('active');
+                    mensCard.classList.remove('active');
+                    womensCustom.style.display = 'block';
+                    mensCustom.style.display = 'none';
+                }
+            }
+        }
+
+        // اختيار العطور للبوكس الرجالي (بحد أقصى 3)
+        function toggleBoxItem(item, name) {
+            if(item.classList.contains('selected')) {
+                item.classList.remove('selected');
+                selectedMensPerfumes = selectedMensPerfumes.filter(p => p !== name);
+            } else {
+                if(selectedMensPerfumes.length >= 3) {
+                    alert("يمكنك اختيار 3 عطور فقط للبوكس الرجالي!");
+                    return;
+                }
+                item.classList.add('selected');
+                selectedMensPerfumes.push(name);
+            }
+        }
+
+        // اختيار عطر Harmony للبوكس النسائي
+        function selectHarmony(item, name) {
+            const items = document.querySelectorAll('#womensHarmonyList .sub-item');
+            items.forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedWomensHarmony = name;
+        }
+
+        // اختيار العطور الفردية 50 مل
         let selectedPerfumes = [];
         function toggleCard(card, name) {
             card.classList.toggle('active');
@@ -296,7 +428,7 @@
             }
         }
 
-        // إرسال الطلب للواتساب
+        // إرسال الطلب مرتباً للواتساب
         function sendWhatsAppOrder() {
             let name = document.getElementById('custName').value.trim();
             let phone = document.getElementById('custPhone').value.trim();
@@ -307,8 +439,21 @@
                 return;
             }
 
-            if(selectedPerfumes.length === 0) {
-                alert("برجاء اختيار عطر أو بوكس واحد على الأقل من القائمة!");
+            let hasBox = selectedBoxType !== null;
+            let hasIndividual = selectedPerfumes.length > 0;
+
+            if(!hasBox && !hasIndividual) {
+                alert("برجاء اختيار بوكس أو عطر واحد على الأقل من القائمة!");
+                return;
+            }
+
+            if(selectedBoxType === 'mens' && selectedMensPerfumes.length < 3) {
+                alert("برجاء اختيار 3 عطور كاملة للبوكس الرجالي!");
+                return;
+            }
+
+            if(selectedBoxType === 'womens' && !selectedWomensHarmony) {
+                alert("برجاء اختيار نوع عطر Harmony للبوكس النسائي!");
                 return;
             }
 
@@ -317,7 +462,17 @@
                             `👤 *الاسم:* ${name}\n` +
                             `📞 *الهاتف:* ${phone}\n` +
                             `📍 *العنوان:* ${address}\n\n` +
-                            `🛍️ *المنتجات المطلوبة:*\n- ${selectedPerfumes.join('\n- ')}`;
+                            `🛍️ *المنتجات المطلوبة:*\n`;
+
+            if(selectedBoxType === 'mens') {
+                orderText += `▪️ *البوكس الرجالي (3×15 مل):*\n  - ${selectedMensPerfumes.join('\n  - ')}\n`;
+            } else if(selectedBoxType === 'womens') {
+                orderText += `▪️ *البوكس النسائي - روزجولد (3×15 مل):*\n  - Good Girl (أساسي)\n  - Libre (أساسي)\n  - ${selectedWomensHarmony}\n`;
+            }
+
+            if(hasIndividual) {
+                orderText += `▪️ *عطور 50 مل الفردية:*\n  - ${selectedPerfumes.join('\n  - ')}`;
+            }
 
             let url = `https://wa.me/${myWhatsApp}?text=${encodeURIComponent(orderText)}`;
             window.open(url, '_blank');
