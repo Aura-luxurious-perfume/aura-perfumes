@@ -136,6 +136,12 @@
             font-size: 10px;
             color: #999;
         }
+        .price-tag {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
         /* صندوق خيارات البوكسات التفاعلية */
         .customization-box {
             background: #1a1a1a;
@@ -285,15 +291,17 @@
         <!-- اختيار البوكسات التفاعلي -->
         <div class="section-title">اختر البوكس المفضل لديك</div>
         <div class="grid">
-            <div class="box-card" id="mensBoxCard" onclick="selectBox('mens')">
+            <div class="box-card" id="mensBoxCard" onclick="selectBox('mens', 350)">
                 <img src="mens-box.jpg" alt="البوكس الرجالي">
                 <h4>البوكس الرجالي</h4>
-                <p>اختر 3 عطور من تشكيلتك</p>
+                <p>اختر 3 عطور</p>
+                <div class="price-tag">350 ج.م</div>
             </div>
-            <div class="box-card" id="womensBoxCard" onclick="selectBox('womens')">
+            <div class="box-card" id="womensBoxCard" onclick="selectBox('womens', 350)">
                 <img src="بوكس حريمي.jpg" alt="البوكس النسائي">
                 <h4>البوكس النسائي (روزشولد)</h4>
-                <p>عطرين أساسيين + عطر Harmony</p>
+                <p>عطرين + Harmony</p>
+                <div class="price-tag">350 ج.م</div>
             </div>
         </div>
 
@@ -326,35 +334,41 @@
         <!-- تشكيلة عطور 50 مل الفردية -->
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
-            <div class="perfume-card" onclick="toggleCard(this, 'Sauvage - 50ml')">
+            <div class="perfume-card" onclick="toggleCard(this, 'Sauvage - 50ml', 200)">
                 <img src="perfume-50ml.jpg" alt="Sauvage">
                 <h4>Sauvage</h4>
-                <p>انتعاش وهيبة مطلقة</p>
+                <p>انتعاش وهيبة</p>
+                <div class="price-tag">200 ج.م</div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Aventus - 50ml')">
+            <div class="perfume-card" onclick="toggleCard(this, 'Aventus - 50ml', 200)">
                 <img src="perfume-50ml.jpg" alt="Aventus">
                 <h4>Aventus</h4>
-                <p>ملكي وثابت لأقصى درجة</p>
+                <p>ملكي وثابت</p>
+                <div class="price-tag">200 ج.م</div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, '1 Million - 50ml')">
+            <div class="perfume-card" onclick="toggleCard(this, '1 Million - 50ml', 200)">
                 <img src="perfume-50ml.jpg" alt="1 Million">
                 <h4>1 Million</h4>
-                <p>عبق الفخامة والجاذبية</p>
+                <p>عبق الفخامة</p>
+                <div class="price-tag">200 ج.م</div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Black Dakkar - 50ml')">
+            <div class="perfume-card" onclick="toggleCard(this, 'Black Dakkar - 50ml', 200)">
                 <img src="perfume-50ml.jpg" alt="Black Dakkar">
                 <h4>Black Dakkar</h4>
-                <p>كلاسيكي جريء وقوي</p>
+                <p>كلاسيكي جريء</p>
+                <div class="price-tag">200 ج.م</div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Intense - 50ml')">
+            <div class="perfume-card" onclick="toggleCard(this, 'Intense - 50ml', 200)">
                 <img src="perfume-50ml.jpg" alt="Intense">
                 <h4>Intense</h4>
-                <p>فوحان عالي ومركز</p>
+                <p>فوحان عالي</p>
+                <div class="price-tag">200 ج.م</div>
             </div>
-            <div class="perfume-card" onclick="toggleCard(this, 'Good Girl - 50ml')">
+            <div class="perfume-card" onclick="toggleCard(this, 'Good Girl - 50ml', 200)">
                 <img src="perfume-50ml.jpg" alt="Good Girl">
                 <h4>Good Girl</h4>
-                <p>سحر وأنوثة طاغية</p>
+                <p>سحر وأنوثة</p>
+                <div class="price-tag">200 ج.م</div>
             </div>
         </div>
 
@@ -381,21 +395,37 @@
             </div>
 
             <div class="notice-box" id="gizaNotice">
-                ⚠️ التوصيل في منطقة الجيزة يتم لأقرب محطة مترو (مصر البناء / المصاريف 30 ج)
+                ⚠️ التوصيل في منطقة الجيزة يتم لأقرب محطة مترو (مصاريف الشحن 30 ج)
             </div>
 
-            <!-- حقول خاصة بالقاهرة -->
+            <!-- حقول خاصة بالقاهرة (جميع مناطق القاهرة) -->
             <div id="cairoFields" style="display:none;">
                 <div class="form-group">
                     <label>المنطقة الرئيسية بالقاهرة:</label>
                     <select id="cairoDistrict">
                         <option value="مدينة نصر">مدينة نصر</option>
                         <option value="التجمع الخامس">التجمع الخامس</option>
+                        <option value="التجمع الأول">التجمع الأول</option>
                         <option value="مصر الجديدة">مصر الجديدة</option>
+                        <option value="النزهة الجديدة">النزهة الجديدة</option>
                         <option value="المعادي">المعادي</option>
+                        <option value="حلوان">حلوان</option>
+                        <option value="مصر القديمة">مصر القديمة</option>
                         <option value="وسط البلد">وسط البلد</option>
+                        <option value="العباسية">العباسية</option>
+                        <option value="عين شمس">عين شمس</option>
+                        <option value="المطرية">المطرية</option>
+                        <option value="المرج">المرج</option>
+                        <option value="السلام">السلام</option>
                         <option value="العبور">العبور</option>
                         <option value="شبرا">شبرا</option>
+                        <option value="شبرا الخيمة">شبرا الخيمة</option>
+                        <option value="المقطم">المقطم</option>
+                        <option value="المنيل">المنيل</option>
+                        <option value="جاردن سيتي">جاردن سيتي</option>
+                        <option value="الزمالك">الزمالك</option>
+                        <option value="المهندسين">المهندسين</option>
+                        <option value="الربوة / مدينة بدر">مدينة بدر</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -404,28 +434,36 @@
                 </div>
                 <div class="form-group">
                     <label>رقم العمارة:</label>
-                    <input type="text" id="cairoBuilding" placeholder="رقم العمارة أو المنز">
+                    <input type="text" id="cairoBuilding" placeholder="رقم العمارة أو المنزل">
                 </div>
             </div>
 
-            <!-- حقول خاصة بالجيزة (محطات المترو) -->
+            <!-- حقول خاصة بالجيزة (جميع محطات مترو الجيزة) -->
             <div id="gizaFields" style="display:none;">
                 <div class="form-group">
-                    <label>اختر محطة المترو الأقرب لك:</label>
+                    <label>اختر محطة المترو الأقرب لك بالجيزة:</label>
                     <select id="gizaMetro">
+                        <option value="محطة جامعة القاهرة">محطة جامعة القاهرة</option>
+                        <option value="محطة بوليڤارد / الهرم (قريب)">محطة الهرم (الخط الرابع مستقبلي/مواصات)</option>
                         <option value="محطة الجيزة">محطة الجيزة</option>
-                        <option value="فيصل">فيصل</option>
-                        <option value="جامعة القاهرة">جامعة القاهرة</option>
-                        <option value="البحوث">البحوث</option>
-                        <option value="الدقي">الدقي</option>
-                        <option value="الملك الصالح">الملك الصالح</option>
-                        <option value="مارجرجس">مارجرجس</option>
+                        <option value="محطة فيصل">محطة فيصل</option>
+                        <option value="محطة البحوث">محطة البحوث</option>
+                        <option value="محطة الدقي">محطة الدقي</option>
+                        <option value="محطة أوبرا">محطة أوبرا</option>
+                        <option value="محطة المنيب">محطة المنيب</option>
+                        <option value="محطة ساقية مكي">محطة ساقية مكي</option>
+                        <option value="محطة أم المصريين">محطة أم المصريين</option>
+                        <option value="محطة الروضة">محطة الروضة</option>
+                        <option value="محطة الملك الصالح">محطة الملك الصالح</option>
+                        <option value="محطة مارجرجس">محطة مارجرجس</option>
                     </select>
                 </div>
             </div>
 
-            <div style="margin-top: 15px; font-size: 13px; color: var(--gold); border-top: 1px dashed #444; padding-top: 8px;" id="orderSummaryText">
-                إجمالي الشحن: 0 ج.م
+            <div style="margin-top: 15px; font-size: 13px; color: var(--gold); border-top: 1px dashed #444; padding-top: 8px; line-height: 1.6;" id="orderSummaryText">
+                إجمالي المنتجات: 0 ج.م<br>
+                مصاريف الشحن: 0 ج.م<br>
+                <strong>الإجمالي الكلي: 0 ج.م</strong>
             </div>
 
             <button class="order-btn" onclick="sendWhatsAppOrder()">تأكيد وإرسال عبر الواتساب</button>
@@ -456,12 +494,15 @@
             showSlide(slideIndex);
         }, 4000);
 
-        // نظام اختيار البوكسات
+        // متغيرات الطلب
         let selectedBoxType = null;
+        let selectedBoxName = "";
+        let boxPrice = 0;
         let selectedMensPerfumes = [];
         let selectedWomensHarmony = null;
+        let selectedPerfumes = []; // كل عطر فردي {name, price}
 
-        function selectBox(type) {
+        function selectBox(type, price) {
             const mensCard = document.getElementById('mensBoxCard');
             const womensCard = document.getElementById('womensBoxCard');
             const mensCustom = document.getElementById('mensCustomization');
@@ -469,18 +510,23 @@
 
             if(selectedBoxType === type) {
                 selectedBoxType = null;
+                selectedBoxName = "";
+                boxPrice = 0;
                 mensCard.classList.remove('active');
                 womensCard.classList.remove('active');
                 mensCustom.style.display = 'none';
                 womensCustom.style.display = 'none';
             } else {
                 selectedBoxType = type;
+                boxPrice = price;
                 if(type === 'mens') {
+                    selectedBoxName = "البوكس الرجالي (3×15 مل)";
                     mensCard.classList.add('active');
                     womensCard.classList.remove('active');
                     mensCustom.style.display = 'block';
                     womensCustom.style.display = 'none';
                 } else {
+                    selectedBoxName = "البوكس النسائي - روزجولد (3×15 مل)";
                     womensCard.classList.add('active');
                     mensCard.classList.remove('active');
                     womensCustom.style.display = 'block';
@@ -510,17 +556,30 @@
             selectedWomensHarmony = name;
         }
 
-        let selectedPerfumes = [];
-        function toggleCard(card, name) {
+        function toggleCard(card, name, price) {
             card.classList.toggle('active');
             if(card.classList.contains('active')) {
-                if(!selectedPerfumes.includes(name)) selectedPerfumes.push(name);
+                if(!selectedPerfumes.some(p => p.name === name)) {
+                    selectedPerfumes.push({name: name, price: price});
+                }
             } else {
-                selectedPerfumes = selectedPerfumes.filter(item => item !== name);
+                selectedPerfumes = selectedPerfumes.filter(item => item.name !== name);
             }
         }
 
-        // فتح نافذة الشحن والتحقق من الاختيارات
+        // حساب إجمالي ثمن المنتجات
+        function calculateProductsTotal() {
+            let total = 0;
+            if(selectedBoxType !== null) {
+                total += boxPrice;
+            }
+            selectedPerfumes.forEach(p => {
+                total += p.price;
+            });
+            return total;
+        }
+
+        // فتح نافذة الشحن والتحقق من الاختيارات وتحديث السعر الإجمالي
         function openCheckoutModal() {
             let hasBox = selectedBoxType !== null;
             let hasIndividual = selectedPerfumes.length > 0;
@@ -540,6 +599,8 @@
                 return;
             }
 
+            // تحديث العرض المبدئي للإجمالي قبل اختيار المدينة
+            updateSummaryDisplay(0);
             document.getElementById('checkoutModal').style.display = 'flex';
         }
 
@@ -547,30 +608,41 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
 
-        // تغيير خانات الشحن حسب المحافظة (قاهرة / جيزة)
+        // تغيير خانات الشحن وحساب المجموع الشامل (منتجات + شحن)
         function handleCityChange() {
             let city = document.getElementById('custCity').value;
             let cairoFields = document.getElementById('cairoFields');
             let gizaFields = document.getElementById('gizaFields');
             let gizaNotice = document.getElementById('gizaNotice');
-            let summary = document.getElementById('orderSummaryText');
 
+            let shippingCost = 0;
             if(city === 'cairo') {
                 cairoFields.style.display = 'block';
                 gizaFields.style.display = 'none';
                 gizaNotice.style.display = 'none';
-                summary.innerHTML = 'مصاريف الشحن: <strong>45 ج.م</strong>';
+                shippingCost = 45;
             } else if(city === 'giza') {
                 cairoFields.style.display = 'none';
                 gizaFields.style.display = 'block';
                 gizaNotice.style.display = 'block';
-                summary.innerHTML = 'مصاريف الشحن (لأقرب محطة مترو): <strong>30 ج.م</strong>';
+                shippingCost = 30;
             } else {
                 cairoFields.style.display = 'none';
                 gizaFields.style.display = 'none';
                 gizaNotice.style.display = 'none';
-                summary.innerHTML = 'إجمالي الشحن: 0 ج.م';
+                shippingCost = 0;
             }
+
+            updateSummaryDisplay(shippingCost);
+        }
+
+        function updateSummaryDisplay(shippingCost) {
+            let productsTotal = calculateProductsTotal();
+            let grandTotal = productsTotal + shippingCost;
+            let summaryHTML = `إجمالي المنتجات: <strong>${productsTotal} ج.م</strong><br>` +
+                              `مصاريف الشحن: <strong>${shippingCost} ج.م</strong><br>` +
+                              `<span style="color:#fff; font-size:14px;">الإجمالي الكلي للدفع: <strong>${grandTotal} ج.م</strong></span>`;
+            document.getElementById('orderSummaryText').innerHTML = summaryHTML;
         }
 
         // إرسال الطلب نهائياً للواتساب
@@ -603,24 +675,34 @@
                 shippingCost = 30;
             }
 
+            let productsTotal = calculateProductsTotal();
+            let grandTotal = productsTotal + shippingCost;
             let myWhatsApp = "201109138404";
+
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
                             `📞 *الهاتف:* ${phone}\n` +
-                            `📍 *العنوان:* ${addressDetails}\n` +
-                            `🚚 *مصاريف الشحن:* ${shippingCost} جنيه\n\n` +
+                            `📍 *العنوان:* ${addressDetails}\n\n` +
                             `🛍️ *المنتجات المطلوبة:*\n`;
 
-            if(selectedBoxType === 'mens') {
-                orderText += `▪️ *البوكس الرجالي (3×15 مل):*\n  - ${selectedMensPerfumes.join('\n  - ')}\n`;
-            } else if(selectedBoxType === 'womens') {
-                orderText += `▪️ *البوكس النسائي - روزجولد (3×15 مل):*\n  - Good Girl (أساسي)\n  - Libre (أساسي)\n  - ${selectedWomensHarmony}\n`;
+            if(selectedBoxType !== null) {
+                orderText += `▪️ *${selectedBoxName}* (${boxPrice} ج.م):\n`;
+                if(selectedBoxType === 'mens') {
+                    orderText += `  - محتوياته: ${selectedMensPerfumes.join(', ')}\n`;
+                } else if(selectedBoxType === 'womens') {
+                    orderText += `  - Good Girl (أساسي)\n  - Libre (أساسي)\n  - ${selectedWomensHarmony}\n`;
+                }
             }
 
             if(selectedPerfumes.length > 0) {
-                orderText += `▪️ *عطور 50 مل الفردية:*\n  - ${selectedPerfumes.join('\n  - ')}\n`;
+                orderText += `▪️ *عطور 50 مل الفردية:*\n`;
+                selectedPerfumes.forEach(p => {
+                    orderText += `  - ${p.name} (${p.price} ج.م)\n`;
+                });
             }
 
-            orderText += `\n💰 *إجمالي الشحن المضاف:* ${shippingCost} ج.م`;
+            orderText += `\n💵 *إجمالي المنتجات:* ${productsTotal} ج.م\n` +
+                         `🚚 *مصاريف الشحن:* ${shippingCost} ج.م\n` +
+                         `💰 *الإجمالي الكلي:* ${grandTotal} ج.م`;
 
             let url = `https://wa.me/${myWhatsApp}?text=${encodeURIComponent(orderText)}`;
             window.open(url, '_blank');
