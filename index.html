@@ -170,40 +170,89 @@
             color: #0b0b0b;
             font-weight: bold;
         }
-        /* نموذج بيانات العميل */
-        .form-group {
-            margin-bottom: 12px;
+        /* نافذة إتمام الطلب (Checkout Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid var(--gold);
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
             text-align: right;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-content h3 {
+            color: var(--gold);
+            margin-top: 0;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 10px;
         }
         .form-group label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--gold);
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             background: #222;
             border: 1px solid #444;
             color: #fff;
-            border-radius: 6px;
+            border-radius: 5px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: 12px;
+        }
+        .notice-box {
+            background: #262315;
+            border: 1px solid var(--gold);
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #d4af37;
+            margin-bottom: 10px;
+            display: none;
+            text-align: center;
         }
         .order-btn {
             display: block;
             background: #25D366;
             color: white;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 15px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .close-modal {
+            background: #444;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 8px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -268,8 +317,8 @@
             <p style="font-size: 11px; color: #aaa; margin: 0 0 8px;">• العطر الثاني: Libre (أساسي)</p>
             <h4 style="margin-top: 10px;">اختر العطر الثالث للبوكس النسائي:</h4>
             <div class="sub-grid" id="womensHarmonyList">
-                <div class="sub-item" onclick="selectHarmony(this, 'Harmony - private')">Harmony (خاص )</div>
-                <div class="sub-item" onclick="selectHarmony(this, 'Good Girl')‍">Good Girl</div>
+                <div class="sub-item" onclick="selectHarmony(this, 'Harmony - private')">Harmony (خاص)</div>
+                <div class="sub-item" onclick="selectHarmony(this, 'Good Girl')">Good Girl</div>
                 <div class="sub-item" onclick="selectHarmony(this, 'Libre')">Libre</div>
             </div>
         </div>
@@ -309,22 +358,79 @@
             </div>
         </div>
 
-        <!-- بيانات الشحن -->
-        <div class="section-title">بيانات الشحن لتأكيد الطلب</div>
-        <div class="form-group">
-            <label>الاسم الكامل:</label>
-            <input type="text" id="custName" placeholder="اكتب اسمك هنا...">
-        </div>
-        <div class="form-group">
-            <label>رقم الهاتف:</label>
-            <input type="tel" id="custPhone" placeholder="رقم الموبايل للتواصل...">
-        </div>
-        <div class="form-group">
-            <label>العنوان بالتفصيل:</label>
-            <input type="text" id="custAddress" placeholder="المدينة، المحافظة، الشارع...">
-        </div>
+        <button class="order-btn" onclick="openCheckoutModal()">إتمام الطلب والشحن</button>
+    </div>
 
-        <button class="order-btn" onclick="sendWhatsAppOrder()">إرسال الطلب عبر الواتساب</button>
+    <!-- نافذة الشحن وإتمام الطلب -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <h3>إنهاء عملية الشراء</h3>
+            
+            <div class="form-group">
+                <label>رقم التليفون:</label>
+                <input type="tel" id="custPhone" placeholder="رقم الموبايل للتواصل...">
+            </div>
+
+            <div class="form-group">
+                <label>اختر المحافظة:</label>
+                <select id="custCity" onchange="handleCityChange()">
+                    <option value="">-- اختر المحافظة --</option>
+                    <option value="cairo">القاهرة</option>
+                    <option value="giza">الجيزة</option>
+                </select>
+            </div>
+
+            <div class="notice-box" id="gizaNotice">
+                ⚠️ التوصيل في منطقة الجيزة يتم لأقرب محطة مترو (مصر البناء / المصاريف 30 ج)
+            </div>
+
+            <!-- حقول خاصة بالقاهرة -->
+            <div id="cairoFields" style="display:none;">
+                <div class="form-group">
+                    <label>المنطقة الرئيسية بالقاهرة:</label>
+                    <select id="cairoDistrict">
+                        <option value="مدينة نصر">مدينة نصر</option>
+                        <option value="التجمع الخامس">التجمع الخامس</option>
+                        <option value="مصر الجديدة">مصر الجديدة</option>
+                        <option value="المعادي">المعادي</option>
+                        <option value="وسط البلد">وسط البلد</option>
+                        <option value="العبور">العبور</option>
+                        <option value="شبرا">شبرا</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>اسم الشارع:</label>
+                    <input type="text" id="cairoStreet" placeholder="اكتب اسم الشارع...">
+                </div>
+                <div class="form-group">
+                    <label>رقم العمارة:</label>
+                    <input type="text" id="cairoBuilding" placeholder="رقم العمارة أو المنز">
+                </div>
+            </div>
+
+            <!-- حقول خاصة بالجيزة (محطات المترو) -->
+            <div id="gizaFields" style="display:none;">
+                <div class="form-group">
+                    <label>اختر محطة المترو الأقرب لك:</label>
+                    <select id="gizaMetro">
+                        <option value="محطة الجيزة">محطة الجيزة</option>
+                        <option value="فيصل">فيصل</option>
+                        <option value="جامعة القاهرة">جامعة القاهرة</option>
+                        <option value="البحوث">البحوث</option>
+                        <option value="الدقي">الدقي</option>
+                        <option value="الملك الصالح">الملك الصالح</option>
+                        <option value="مارجرجس">مارجرجس</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px; font-size: 13px; color: var(--gold); border-top: 1px dashed #444; padding-top: 8px;" id="orderSummaryText">
+                إجمالي الشحن: 0 ج.م
+            </div>
+
+            <button class="order-btn" onclick="sendWhatsAppOrder()">تأكيد وإرسال عبر الواتساب</button>
+            <button class="close-modal" onclick="closeCheckoutModal()">إلغاء</button>
+        </div>
     </div>
 
     <script>
@@ -362,7 +468,6 @@
             const womensCustom = document.getElementById('womensCustomization');
 
             if(selectedBoxType === type) {
-                // إلغاء التحديد لو ضغط تاني
                 selectedBoxType = null;
                 mensCard.classList.remove('active');
                 womensCard.classList.remove('active');
@@ -384,7 +489,6 @@
             }
         }
 
-        // اختيار العطور للبوكس الرجالي (بحد أقصى 3)
         function toggleBoxItem(item, name) {
             if(item.classList.contains('selected')) {
                 item.classList.remove('selected');
@@ -399,7 +503,6 @@
             }
         }
 
-        // اختيار عطر Harmony للبوكس النسائي
         function selectHarmony(item, name) {
             const items = document.querySelectorAll('#womensHarmonyList .sub-item');
             items.forEach(el => el.classList.remove('selected'));
@@ -407,7 +510,6 @@
             selectedWomensHarmony = name;
         }
 
-        // اختيار العطور الفردية 50 مل
         let selectedPerfumes = [];
         function toggleCard(card, name) {
             card.classList.toggle('active');
@@ -418,17 +520,8 @@
             }
         }
 
-        // إرسال الطلب مرتباً للواتساب
-        function sendWhatsAppOrder() {
-            let name = document.getElementById('custName').value.trim();
-            let phone = document.getElementById('custPhone').value.trim();
-            let address = document.getElementById('custAddress').value.trim();
-
-            if(!name || !phone || !address) {
-                alert("برجاء إدخال (الاسم، رقم الهاتف، والعنوان) لتأكيد الطلب!");
-                return;
-            }
-
+        // فتح نافذة الشحن والتحقق من الاختيارات
+        function openCheckoutModal() {
             let hasBox = selectedBoxType !== null;
             let hasIndividual = selectedPerfumes.length > 0;
 
@@ -443,15 +536,78 @@
             }
 
             if(selectedBoxType === 'womens' && !selectedWomensHarmony) {
-                alert("برجاء اختيار نوع عطر Harmony للبوكس النسائي!");
+                alert("برجاء اختيار عطر Harmony للبوكس النسائي!");
                 return;
+            }
+
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        // تغيير خانات الشحن حسب المحافظة (قاهرة / جيزة)
+        function handleCityChange() {
+            let city = document.getElementById('custCity').value;
+            let cairoFields = document.getElementById('cairoFields');
+            let gizaFields = document.getElementById('gizaFields');
+            let gizaNotice = document.getElementById('gizaNotice');
+            let summary = document.getElementById('orderSummaryText');
+
+            if(city === 'cairo') {
+                cairoFields.style.display = 'block';
+                gizaFields.style.display = 'none';
+                gizaNotice.style.display = 'none';
+                summary.innerHTML = 'مصاريف الشحن: <strong>45 ج.م</strong>';
+            } else if(city === 'giza') {
+                cairoFields.style.display = 'none';
+                gizaFields.style.display = 'block';
+                gizaNotice.style.display = 'block';
+                summary.innerHTML = 'مصاريف الشحن (لأقرب محطة مترو): <strong>30 ج.م</strong>';
+            } else {
+                cairoFields.style.display = 'none';
+                gizaFields.style.display = 'none';
+                gizaNotice.style.display = 'none';
+                summary.innerHTML = 'إجمالي الشحن: 0 ج.م';
+            }
+        }
+
+        // إرسال الطلب نهائياً للواتساب
+        function sendWhatsAppOrder() {
+            let phone = document.getElementById('custPhone').value.trim();
+            let city = document.getElementById('custCity').value;
+
+            if(!phone || !city) {
+                alert("برجاء إدخال رقم الهاتف وتحديد المحافظة!");
+                return;
+            }
+
+            let addressDetails = "";
+            let shippingCost = 0;
+
+            if(city === 'cairo') {
+                let district = document.getElementById('cairoDistrict').value;
+                let street = document.getElementById('cairoStreet').value.trim();
+                let building = document.getElementById('cairoBuilding').value.trim();
+                
+                if(!street || !building) {
+                    alert("برجاء إدخال اسم الشارع ورقم العمارة بالتفصيل!");
+                    return;
+                }
+                addressDetails = `القاهرة (${district}) - ش: ${street} - عمارة: ${building}`;
+                shippingCost = 45;
+            } else if(city === 'giza') {
+                let metro = document.getElementById('gizaMetro').value;
+                addressDetails = `الجيزة - الاستلام عند محطة مترو: ${metro}`;
+                shippingCost = 30;
             }
 
             let myWhatsApp = "201109138404";
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
-                            `👤 *الاسم:* ${name}\n` +
                             `📞 *الهاتف:* ${phone}\n` +
-                            `📍 *العنوان:* ${address}\n\n` +
+                            `📍 *العنوان:* ${addressDetails}\n` +
+                            `🚚 *مصاريف الشحن:* ${shippingCost} جنيه\n\n` +
                             `🛍️ *المنتجات المطلوبة:*\n`;
 
             if(selectedBoxType === 'mens') {
@@ -460,9 +616,11 @@
                 orderText += `▪️ *البوكس النسائي - روزجولد (3×15 مل):*\n  - Good Girl (أساسي)\n  - Libre (أساسي)\n  - ${selectedWomensHarmony}\n`;
             }
 
-            if(hasIndividual) {
-                orderText += `▪️ *عطور 50 مل الفردية:*\n  - ${selectedPerfumes.join('\n  - ')}`;
+            if(selectedPerfumes.length > 0) {
+                orderText += `▪️ *عطور 50 مل الفردية:*\n  - ${selectedPerfumes.join('\n  - ')}\n`;
             }
+
+            orderText += `\n💰 *إجمالي الشحن المضاف:* ${shippingCost} ج.م`;
 
             let url = `https://wa.me/${myWhatsApp}?text=${encodeURIComponent(orderText)}`;
             window.open(url, '_blank');
