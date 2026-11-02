@@ -129,6 +129,11 @@
             margin-bottom: 6px;
             border: 1px solid #333;
         }
+        .perfume-card.active, .box-card.active {
+            border-color: var(--gold);
+            background: #232012;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+        }
         .perfume-card h4, .box-card h4 {
             margin: 4px 0;
             font-size: 13px;
@@ -388,9 +393,9 @@
                 <p>اختر 3 عطور</p>
                 <div class="price-tag">200 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changeBoxQty('mens', -1)">-</button>
+                    <button class="qty-btn" type="button" onclick="changeBoxQty('mens', -1)">-</button>
                     <span class="qty-display" id="mensBoxQty">0</span>
-                    <button class="qty-btn" onclick="changeBoxQty('mens', 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changeBoxQty('mens', 1)">+</button>
                 </div>
             </div>
             <div class="box-card" id="womensBoxCard">
@@ -399,9 +404,9 @@
                 <p>عطرين + Harmony</p>
                 <div class="price-tag">200 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changeBoxQty('womens', -1)">-</button>
+                    <button class="qty-btn" type="button" onclick="changeBoxQty('womens', -1)">-</button>
                     <span class="qty-display" id="womensBoxQty">0</span>
-                    <button class="qty-btn" onclick="changeBoxQty('womens', 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changeBoxQty('womens', 1)">+</button>
                 </div>
             </div>
         </div>
@@ -435,81 +440,81 @@
         <!-- تشكيلة عطور 50 مل الفردية مع التحكم بالكمية -->
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
-            <div class="perfume-card" id="card-Sauvage-50ml">
+            <div class="perfume-card" id="card-perfume-0">
                 <img src="perfume-50ml.jpg" alt="Sauvage">
                 <h4>Sauvage</h4>
                 <p>انتعاش وهيبة</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changePerfumeQty('Sauvage - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-Sauvage-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('Sauvage - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(0, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-0">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(0, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-Aventus-50ml">
+            <div class="perfume-card" id="card-perfume-1">
                 <img src="perfume-50ml.jpg" alt="Aventus">
                 <h4>Aventus</h4>
                 <p>ملكي وثابت</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changePerfumeQty('Aventus - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-Aventus-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('Aventus - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(1, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-1">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(1, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-1-Million-50ml">
+            <div class="perfume-card" id="card-perfume-2">
                 <img src="perfume-50ml.jpg" alt="1 Million">
                 <h4>1 Million</h4>
                 <p>عبق الفخامة</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changePerfumeQty('1 Million - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-1-Million-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('1 Million - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(2, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-2">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(2, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-Black-Dakkar-50ml">
+            <div class="perfume-card" id="card-perfume-3">
                 <img src="perfume-50ml.jpg" alt="Black Dakkar">
                 <h4>Black Dakkar</h4>
                 <p>كلاسيكي جريء</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changePerfumeQty('Black Dakkar - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-Black-Dakkar-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('Black Dakkar - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(3, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-3">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(3, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-Intense-50ml">
+            <div class="perfume-card" id="card-perfume-4">
                 <img src="perfume-50ml.jpg" alt="Intense">
                 <h4>Intense</h4>
                 <p>فوحان عالي</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changePerfumeQty('Intense - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-Intense-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('Intense - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(4, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-4">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(4, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-Good-Girl-50ml">
+            <div class="perfume-card" id="card-perfume-5">
                 <img src="جودجيرل.jpg" alt="Good Girl">
                 <h4>Good Girl</h4>
                 <p>سحر وأنوثة</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
-                    <button class="qty-btn" onclick="changePerfumeQty('Good Girl - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-Good-Girl-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('Good Girl - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(5, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-5">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(5, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-Harmony-50ml" style="grid-column: span 2;">
+            <div class="perfume-card" id="card-perfume-6" style="grid-column: span 2;">
                 <img src="هارموني.jpg" alt="Harmony" style="height: 120px;">
                 <h4>Harmony</h4>
                 <p>عطر AURA الخاص الفاخر</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control" style="max-width: 200px; margin: 8px auto 0;">
-                    <button class="qty-btn" onclick="changePerfumeQty('Harmony - 50ml', 250, -1)">-</button>
-                    <span class="qty-display" id="qty-Harmony-50ml">0</span>
-                    <button class="qty-btn" onclick="changePerfumeQty('Harmony - 50ml', 250, 1)">+</button>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(6, -1)">-</button>
+                    <span class="qty-display" id="qty-perfume-6">0</span>
+                    <button class="qty-btn" type="button" onclick="changePerfumeQty(6, 1)">+</button>
                 </div>
             </div>
         </div>
@@ -641,21 +646,22 @@
             showSlide(slideIndex);
         }, 4000);
 
-        // متغيرات النظام بالكميات
+        // بيانات البوكسات
         let boxesData = {
             mens: { name: "البوكس الرجالي (3×15 مل)", price: 200, qty: 0 },
             womens: { name: "البوكس النسائي - روزجولد (3×15 مل)", price: 200, qty: 0 }
         };
 
-        let perfumesData = {
-            'Sauvage - 50ml': { name: 'Sauvage', price: 250, qty: 0 },
-            'Aventus - 50ml': { name: 'Aventus', price: 250, qty: 0 },
-            '1 Million - 50ml': { name: '1 Million', price: 250, qty: 0 },
-            'Black Dakkar - 50ml': { name: 'Black Dakkar', price: 250, qty: 0 },
-            'Intense - 50ml': { name: 'Intense', price: 250, qty: 0 },
-            'Good Girl - 50ml': { name: 'Good Girl', price: 250, qty: 0 },
-            'Harmony - 50ml': { name: 'Harmony', price: 250, qty: 0 }
-        };
+        // بيانات العطور الفردية (مصفوفة لضمان استقرار الأندكس وتجنب أي مشاكل في الأسماء)
+        let perfumesData = [
+            { name: 'Sauvage', price: 250, qty: 0 },
+            { name: 'Aventus', price: 250, qty: 0 },
+            { name: '1 Million', price: 250, qty: 0 },
+            { name: 'Black Dakkar', price: 250, qty: 0 },
+            { name: 'Intense', price: 250, qty: 0 },
+            { name: 'Good Girl', price: 250, qty: 0 },
+            { name: 'Harmony', price: 250, qty: 0 }
+        ];
 
         let selectedMensPerfumes = [];
         let selectedWomensHarmony = null;
@@ -679,14 +685,14 @@
             }
         }
 
-        // التحكم بكميات العطور الفردية
-        function changePerfumeQty(key, price, change) {
-            if (perfumesData[key].qty + change >= 0) {
-                perfumesData[key].qty += change;
-                document.getElementById('qty-' + key.replace(/ /g, '-')).innerText = perfumesData[key].qty;
+        // التحكم بكميات العطور الفردية بدقة عبر الـ index
+        function changePerfumeQty(index, change) {
+            if (perfumesData[index].qty + change >= 0) {
+                perfumesData[index].qty += change;
+                document.getElementById('qty-perfume-' + index).innerText = perfumesData[index].qty;
                 
-                const card = document.getElementById('card-' + key.replace(/ /g, '-'));
-                if (perfumesData[key].qty > 0) {
+                const card = document.getElementById('card-perfume-' + index);
+                if (perfumesData[index].qty > 0) {
                     card.classList.add('active');
                 } else {
                     card.classList.remove('active');
@@ -715,15 +721,15 @@
             selectedWomensHarmony = name;
         }
 
-        // حساب إجمالي المنتجات والكميات
+        // حساب إجمالي المنتجات
         function calculateProductsTotal() {
             let total = 0;
             for (let k in boxesData) {
                 total += boxesData[k].qty * boxesData[k].price;
             }
-            for (let k in perfumesData) {
-                total += perfumesData[k].qty * perfumesData[k].price;
-            }
+            perfumesData.forEach(p => {
+                total += p.qty * p.price;
+            });
             return total;
         }
 
@@ -731,7 +737,7 @@
         function openCheckoutModal() {
             let totalBoxesQty = boxesData.mens.qty + boxesData.womens.qty;
             let totalPerfumesQty = 0;
-            for (let k in perfumesData) totalPerfumesQty += perfumesData[k].qty;
+            perfumesData.forEach(p => totalPerfumesQty += p.qty);
 
             if (totalBoxesQty === 0 && totalPerfumesQty === 0) {
                 alert("برجاء اختيار بوكس أو عطر واحد على الأقل من القائمة!");
@@ -748,7 +754,7 @@
                 return;
             }
 
-            // بناء واجهة تفاصيل السلة
+            // بناء تفاصيل السلة
             let cartHTML = "";
             for (let k in boxesData) {
                 if (boxesData[k].qty > 0) {
@@ -756,12 +762,12 @@
                     cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${boxesData[k].name} (×${boxesData[k].qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
                 }
             }
-            for (let k in perfumesData) {
-                if (perfumesData[k].qty > 0) {
-                    let itemTotal = perfumesData[k].qty * perfumesData[k].price;
-                    cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${perfumesData[k].name} 50مل (×${perfumesData[k].qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
+            perfumesData.forEach(p => {
+                if (p.qty > 0) {
+                    let itemTotal = p.qty * p.price;
+                    cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${p.name} 50مل (×${p.qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
                 }
-            }
+            });
             document.getElementById('cartSummaryList').innerHTML = cartHTML;
 
             updateSummaryDisplay(0);
@@ -808,7 +814,7 @@
             document.getElementById('orderSummaryText').innerHTML = summaryHTML;
         }
 
-        // إرسال الطلب للواتساب بالكميات والتفاصيل الكاملة
+        // إرسال الطلب للواتساب
         function sendWhatsAppOrder() {
             let phone = document.getElementById('custPhone').value.trim();
             let city = document.getElementById('custCity').value;
@@ -858,12 +864,12 @@
 
             let hasPerfumes = false;
             let perfumesText = `▪️ *عطور 50 مل الفردية:*\n`;
-            for (let k in perfumesData) {
-                if (perfumesData[k].qty > 0) {
+            perfumesData.forEach(p => {
+                if (p.qty > 0) {
                     hasPerfumes = true;
-                    perfumesText += `  - ${perfumesData[k].name} (العدد: ${perfumesData[k].qty}) - ${perfumesData[k].qty * perfumesData[k].price} ج.م\n`;
+                    perfumesText += `  - ${p.name} (العدد: ${p.qty}) - ${p.qty * p.price} ج.م\n`;
                 }
-            }
+            });
 
             if(hasPerfumes) {
                 orderText += perfumesText;
