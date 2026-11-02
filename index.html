@@ -356,17 +356,17 @@
         <!-- اختيار البوكسات التفاعلي -->
         <div class="section-title">اختر البوكسات المفضلة لديك</div>
         <div class="grid">
-            <div class="box-card" id="mensBoxCard" onclick="selectBox('mens', 350)">
+            <div class="box-card" id="mensBoxCard" onclick="selectBox('mens', 200)">
                 <img src="mens-box.jpg" alt="البوكس الرجالي">
                 <h4>البوكس الرجالي</h4>
                 <p>اختر 3 عطور</p>
-                <div class="price-tag">350 ج.م</div>
+                <div class="price-tag">200 ج.م</div>
             </div>
-            <div class="box-card" id="womensBoxCard" onclick="selectBox('womens', 350)">
+            <div class="box-card" id="womensBoxCard" onclick="selectBox('womens', 200)">
                 <img src="بوكس حريمي.jpg" alt="البوكس النسائي">
                 <h4>البوكس النسائي (روزشولد)</h4>
                 <p>عطرين + Harmony</p>
-                <div class="price-tag">350 ج.م</div>
+                <div class="price-tag">200 ج.م</div>
             </div>
         </div>
 
@@ -571,7 +571,7 @@
         }, 4000);
 
         // متغيرات السلة
-        let selectedBoxes = []; // مصفوفة للبوكسات (يمكن اختيار أكتر من بوكس)
+        let selectedBoxes = []; // مصفوفة للبوكسات
         let selectedMensPerfumes = [];
         let selectedWomensHarmony = null;
         let selectedPerfumes = []; // العطور الفردية {name, price}
@@ -633,7 +633,6 @@
             if(card.classList.contains('active')) {
                 selectedPerfumes.push({name: name, price: price});
             } else {
-                // إزالة أول عنصر مطابق لو تم إلغاء تفعيله
                 let index = selectedPerfumes.findIndex(p => p.name === name);
                 if(index > -1) selectedPerfumes.splice(index, 1);
             }
