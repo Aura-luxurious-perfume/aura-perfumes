@@ -30,7 +30,7 @@
         }
         h1 {
             color: var(--gold);
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 5px;
             letter-spacing: 2px;
         }
@@ -60,7 +60,7 @@
         .slide img {
             width: 100%;
             border-radius: 8px;
-            max-height: 220px;
+            height: 200px;
             object-fit: cover;
         }
         .slide h3 {
@@ -89,7 +89,7 @@
         .dot.active {
             background: var(--gold);
         }
-        /* أقسام العطور الـ 50 مل */
+        /* أقسام العطور المنفصلة */
         .section-title {
             color: var(--gold);
             font-size: 16px;
@@ -106,8 +106,8 @@
         }
         .perfume-card {
             background: #202020;
-            border:: 1px solid #333;
-            padding: 10px;
+            border: 1px solid #333;
+            padding: 12px;
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
@@ -168,7 +168,7 @@
 
     <div class="container">
         <h1>A U R A</h1>
-        <div class="subtitle">عطور الفخامة الاستثنائية</div>
+        <div class="subtitle">فن صناعة العطور الفاخرة</div>
 
         <!-- السلايدر العلوي للعروض والبوكسات -->
         <div class="slider">
@@ -190,7 +190,7 @@
             </div>
         </div>
 
-        <!-- اختيار عطور الـ 50 مل المنفصلة -->
+        <!-- اختيار العطور المنفصلة -->
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
             <div class="perfume-card" onclick="toggleCard(this, 'Sauvage - 50ml')">
@@ -230,14 +230,14 @@
     </div>
 
     <script>
-        // حركة السلايدر التلقائية
+        // حركة السلايدر
         let slideIndex = 0;
         const slidesContainer = document.getElementById('sliderContainer');
         const dots = document.querySelectorAll('.dot');
 
         function showSlide(index) {
             slideIndex = index;
-            slidesContainer.style.transform = `translateX(${slideIndex * 100}%)`;
+            slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === slideIndex);
             });
@@ -263,7 +263,7 @@
             }
         }
 
-        // إرسال الطلب مرتباً للواتساب
+        // إرسال الطلب مرتباً للواتساب برقمك 201109138404
         function sendWhatsAppOrder() {
             let name = document.getElementById('custName').value.trim();
             let phone = document.getElementById('custPhone').value.trim();
