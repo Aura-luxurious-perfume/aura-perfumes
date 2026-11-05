@@ -30,6 +30,22 @@
             box-shadow: 0 15px 35px rgba(212, 175, 55, 0.12);
             border: 1px solid var(--border-color);
         }
+        .top-banner {
+            background: linear-gradient(135deg, #d4af37, #aa8c2c);
+            color: #0b0b0b;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 7px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; transform: scale(1.01); }
+            100% { opacity: 0.9; }
+        }
         h1 {
             color: var(--gold);
             font-size: 28px;
@@ -42,7 +58,6 @@
             margin-bottom: 22px;
             letter-spacing: 1px;
         }
-        /* تصميم السلايدر العلوي */
         .slider {
             position: relative;
             background: #1b1b1b;
@@ -96,7 +111,6 @@
             width: 20px;
             border-radius: 4px;
         }
-        /* أقسام العطور المنفصلة */
         .section-title {
             color: var(--gold);
             font-size: 15px;
@@ -154,7 +168,6 @@
             border-radius: 4px;
             display: inline-block;
         }
-        /* أزرار التحكم بالكمية (+ و -) */
         .qty-control {
             display: flex;
             align-items: center;
@@ -186,8 +199,6 @@
             color: #fff;
             min-width: 20px;
         }
-
-        /* صندوق خيارات البوكسات التفاعلية */
         .customization-box {
             background: #181818;
             border: 1px dashed var(--gold);
@@ -201,6 +212,12 @@
             color: var(--gold);
             margin: 0 0 8px;
             font-size: 13px;
+        }
+        .selection-progress {
+            font-size: 11px;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-weight: bold;
         }
         .sub-grid {
             display: grid;
@@ -223,7 +240,6 @@
             font-weight: bold;
             border-color: var(--gold);
         }
-        /* زر الطلب الأساسي */
         .order-btn {
             display: block;
             background: linear-gradient(135deg, #d4af37, #aa8c2c);
@@ -234,7 +250,7 @@
             width: 100%;
             padding: 14px;
             border-radius: 10px;
-            margin-top: 25px;
+            margin-top: 20px;
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
             transition: 0.3s;
@@ -243,8 +259,48 @@
             opacity: 0.9;
             transform: scale(1.01);
         }
-
-        /* نافذة الشحن وإتمام الطلب (Checkout Modal) */
+        .support-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #1e1e1e;
+            color: #25D366;
+            border: 1px solid #25D366;
+            font-size: 13px;
+            font-weight: bold;
+            width: 100%;
+            padding: 11px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+        .support-btn:hover {
+            background: rgba(37, 211, 102, 0.1);
+        }
+        .reviews-section {
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            text-align: right;
+        }
+        .review-card {
+            background: #1b1b1b;
+            border: 1px solid #262626;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        .review-card span {
+            color: var(--gold);
+            font-weight: bold;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -309,7 +365,6 @@
             line-height: 1.5;
             display: none;
         }
-        /* صندوق ملخص السلة داخل الشيك */
         .cart-summary-box {
             background: #111;
             border: 1px solid #333;
@@ -317,18 +372,37 @@
             border-radius: 8px;
             margin-bottom: 15px;
             font-size: 12px;
-            max-height: 140px;
+            max-height: 160px;
             overflow-y: auto;
         }
         .cart-item-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            align-items: center;
+            margin-bottom: 6px;
             border-bottom: 1px solid #222;
-            padding-bottom: 4px;
+            padding-bottom: 5px;
         }
-        .cart-item-name { color: #ddd; }
+        .cart-item-info { display: flex; flex-direction: column; text-align: right; }
+        .cart-item-name { color: #ddd; font-weight: bold; }
+        .cart-item-details { color: #888; font-size: 10px; }
+        .cart-item-price-action { display: flex; align-items: center; gap: 8px; }
         .cart-item-price { color: var(--gold); font-weight: bold; }
+        .remove-item-btn {
+            background: rgba(255, 75, 75, 0.15);
+            color: #ff4b4b;
+            border: 1px solid rgba(255, 75, 75, 0.3);
+            border-radius: 4px;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .remove-item-btn:hover { background: #ff4b4b; color: #fff; }
 
         .whatsapp-confirm-btn {
             display: block;
@@ -361,10 +435,13 @@
 <body>
 
     <div class="container">
+        <div class="top-banner">
+            🔥 عروض لفترة محدودة: اطلب الآن واحصل على فخامة لا تُنسى!
+        </div>
+
         <h1>A U R A</h1>
         <div class="subtitle">عطور الفخامة الاستثنائية</div>
 
-        <!-- السلايدر العلوي للبوكسات -->
         <div class="slider">
             <div class="slides-container" id="sliderContainer">
                 <div class="slide">
@@ -384,7 +461,6 @@
             </div>
         </div>
 
-        <!-- اختيار البوكسات التفاعلي مع التحكم بالكمية -->
         <div class="section-title">اختر البوكسات المفضلة لديك</div>
         <div class="grid">
             <div class="box-card" id="mensBoxCard">
@@ -411,9 +487,9 @@
             </div>
         </div>
 
-        <!-- خيارات تخصيص البوكس الرجالي (3 عطور) -->
         <div class="customization-box" id="mensCustomization">
             <h4>اختر 3 عطور للبوكس الرجالي:</h4>
+            <div class="selection-progress" id="mensProgressText">تم اختيار: 0 من 3</div>
             <div class="sub-grid" id="mensPerfumesList">
                 <div class="sub-item" onclick="toggleBoxItem(this, 'Sauvage')">Sauvage</div>
                 <div class="sub-item" onclick="toggleBoxItem(this, 'Aventus')">Aventus</div>
@@ -424,7 +500,6 @@
             </div>
         </div>
 
-        <!-- خيارات تخصيص البوكس النسائي (عطرين أساسيين + Harmony) -->
         <div class="customization-box" id="womensCustomization">
             <h4>محتويات البوكس النسائي:</h4>
             <p style="font-size: 11px; color: #aaa; margin: 0 0 6px;">• العطر الأول: Good Girl (أساسي)</p>
@@ -437,7 +512,6 @@
             </div>
         </div>
 
-        <!-- تشكيلة عطور 50 مل الفردية مع التحكم بالكمية -->
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
             <div class="perfume-card" id="card-perfume-0">
@@ -476,7 +550,7 @@
             <div class="perfume-card" id="card-perfume-3">
                 <img src="لبري.jpg" alt="Labri">
                 <h4>Labri</h4>
-                <p>رشة منعشة ومشرقة من اللافندر الفرنسي مع لمسة حمضية من اليوسفي</p>
+                <p>رشة منعشة ومشرقة من اللافندر الفرنسي</p>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(3, -1)">-</button>
@@ -520,16 +594,35 @@
         </div>
 
         <button class="order-btn" onclick="openCheckoutModal()">إتمام الطلب والشحن</button>
+        
+        <a href="https://wa.me/201109138404?text=السلام%20عليكم،%20أحتاج%20مساعدة%20في%20الاستفسار%20عن%20العطور" target="_blank" class="support-btn">
+            💬 تواصل مع فريق الدعم عبر الواتساب
+        </a>
+
+        <div class="reviews-section">
+            <div class="section-title" style="margin-top: 0; border: none; padding: 0;">آراء عملائنا الفاخرين ⭐⭐⭐⭐⭐</div>
+            <div class="review-card">
+                "الثبات حقيقي ممتاز وفضل ثابت معايا طول اليوم، شكراً AURA على الذوق الراقي." <br>
+                <span>- مروان ط. (قاهرة)</span>
+            </div>
+            <div class="review-card">
+                "البوكس الرجالي فخم جداً والتغليف شيك أوي، أحلى عطور جربتها." <br>
+                <span>- كريم ع. (جيزة)</span>
+            </div>
+        </div>
     </div>
 
-    <!-- نافذة الشحن وإتمام الطلب (Checkout Modal) -->
     <div class="modal" id="checkoutModal">
         <div class="modal-content">
-            <h3>ملخص الطلب وإتمام الشراء</h3>
+            <h3>سلة الشراء وإتمام الطلب</h3>
             
-            <!-- قائمة المنتجات المختارة -->
+            <div style="text-align: left; margin-bottom: 10px; display: none;" id="resetDataWrapper">
+                <button type="button" onclick="clearCustomerData()" style="background: transparent; border: none; color: var(--rose-gold); font-size: 11px; cursor: pointer; text-decoration: underline; padding: 0;">
+                    🔄 بياناتي غير صحيحة؟ مسح البيانات المحفوظة
+                </button>
+            </div>
+
             <div class="cart-summary-box" id="cartSummaryList">
-                <!-- سيتم تعبئتها ديناميكياً -->
             </div>
 
             <div class="form-group">
@@ -550,7 +643,6 @@
                 ⚠️ التوصيل في منطقة الجيزة يتم لأقرب محطة مترو<br>(مصاريف الشحن الثابتة: 30 ج.م)
             </div>
 
-            <!-- حقول خاصة بالقاهرة -->
             <div id="cairoFields" style="display:none;">
                 <div class="form-group">
                     <label>المنطقة الرئيسية:</label>
@@ -590,7 +682,6 @@
                 </div>
             </div>
 
-            <!-- حقول خاصة بالجيزة (جميع المحطات) -->
             <div id="gizaFields" style="display:none;">
                 <div class="form-group">
                     <label>محطة المترو الأقرب لك:</label>
@@ -611,7 +702,6 @@
                 </div>
             </div>
 
-            <!-- عرض الإجمالي المجمع -->
             <div style="margin-top: 12px; font-size: 13px; color: var(--gold); border-top: 1px dashed #444; padding-top: 8px; line-height: 1.6;" id="orderSummaryText">
                 إجمالي المنتجات: 0 ج.م<br>
                 مصاريف الشحن: 0 ج.م<br>
@@ -619,12 +709,11 @@
             </div>
 
             <button class="whatsapp-confirm-btn" onclick="sendWhatsAppOrder()">تأكيد وإرسال عبر الواتساب</button>
-            <button class="close-modal" onclick="closeCheckoutModal()">إلغاء وتعديل الطلب</button>
+            <button class="close-modal" onclick="closeCheckoutModal()">إغلاق ومتابعة التسوق</button>
         </div>
     </div>
 
     <script>
-        // حركة السلايدر
         let slideIndex = 0;
         const slidesContainer = document.getElementById('sliderContainer');
         const dots = document.querySelectorAll('.dot');
@@ -646,13 +735,11 @@
             showSlide(slideIndex);
         }, 4000);
 
-        // بيانات البوكسات
         let boxesData = {
             mens: { name: "البوكس الرجالي (3×15 مل)", price: 200, qty: 0 },
             womens: { name: "البوكس النسائي - روزجولد (3×15 مل)", price: 200, qty: 0 }
         };
 
-        // بيانات العطور الفردية (مصفوفة لضمان استقرار الأندكس وتجنب أي مشاكل في الأسماء)
         let perfumesData = [
             { name: 'Sauvage', price: 250, qty: 0 },
             { name: 'Aventus', price: 250, qty: 0 },
@@ -666,7 +753,6 @@
         let selectedMensPerfumes = [];
         let selectedWomensHarmony = null;
 
-        // التحكم بكميات البوكسات
         function changeBoxQty(type, change) {
             if (boxesData[type].qty + change >= 0) {
                 boxesData[type].qty += change;
@@ -681,11 +767,11 @@
                 } else {
                     card.classList.remove('active');
                     customBox.style.display = 'none';
+                    if(type === 'mens') selectedMensPerfumes = [];
                 }
             }
         }
 
-        // التحكم بكميات العطور الفردية بدقة عبر الـ index
         function changePerfumeQty(index, change) {
             if (perfumesData[index].qty + change >= 0) {
                 perfumesData[index].qty += change;
@@ -712,6 +798,7 @@
                 item.classList.add('selected');
                 selectedMensPerfumes.push(name);
             }
+            document.getElementById('mensProgressText').innerText = `تم اختيار: ${selectedMensPerfumes.length} من 3`;
         }
 
         function selectHarmony(item, name) {
@@ -721,7 +808,6 @@
             selectedWomensHarmony = name;
         }
 
-        // حساب إجمالي المنتجات
         function calculateProductsTotal() {
             let total = 0;
             for (let k in boxesData) {
@@ -733,14 +819,83 @@
             return total;
         }
 
-        // فتح نافذة الشيك وملخص السلة
+        function removeCartItem(type, index) {
+            if (type === 'box') {
+                boxesData[index].qty = 0;
+                document.getElementById(index + 'BoxQty').innerText = 0;
+                document.getElementById(index + 'BoxCard').classList.remove('active');
+                document.getElementById(index + 'Customization').style.display = 'none';
+                if(index === 'mens') {
+                    selectedMensPerfumes = [];
+                    document.querySelectorAll('#mensPerfumesList .sub-item').forEach(el => el.classList.remove('selected'));
+                    document.getElementById('mensProgressText').innerText = `تم اختيار: 0 من 3`;
+                }
+            } else if (type === 'perfume') {
+                perfumesData[index].qty = 0;
+                document.getElementById('qty-perfume-' + index).innerText = 0;
+                document.getElementById('card-perfume-' + index).classList.remove('active');
+            }
+            renderCartSummary();
+        }
+
+        function renderCartSummary() {
+            let cartHTML = "";
+            let hasItems = false;
+
+            for (let k in boxesData) {
+                if (boxesData[k].qty > 0) {
+                    hasItems = true;
+                    let itemTotal = boxesData[k].qty * boxesData[k].price;
+                    let subDetails = (k === 'mens') ? `العطور: ${selectedMensPerfumes.join(', ')}` : `عطور: Good Girl + Libre + ${selectedWomensHarmony}`;
+                    cartHTML += `
+                        <div class="cart-item-row">
+                            <div class="cart-item-info">
+                                <span class="cart-item-name">${boxesData[k].name} (×${boxesData[k].qty})</span>
+                                <span class="cart-item-details">${subDetails}</span>
+                            </div>
+                            <div class="cart-item-price-action">
+                                <span class="cart-item-price">${itemTotal} ج.م</span>
+                                <button type="button" class="remove-item-btn" onclick="removeCartItem('box', '${k}')" title="حذف المنتج">✕</button>
+                            </div>
+                        </div>`;
+                }
+            }
+
+            perfumesData.forEach((p, idx) => {
+                if (p.qty > 0) {
+                    hasItems = true;
+                    let itemTotal = p.qty * p.price;
+                    cartHTML += `
+                        <div class="cart-item-row">
+                            <div class="cart-item-info">
+                                <span class="cart-item-name">${p.name} 50مل (×${p.qty})</span>
+                            </div>
+                            <div class="cart-item-price-action">
+                                <span class="cart-item-price">${itemTotal} ج.م</span>
+                                <button type="button" class="remove-item-btn" onclick="removeCartItem('perfume', ${idx})" title="حذف المنتج">✕</button>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            if (!hasItems) {
+                cartHTML = `<div style="text-align:center; color:#888; padding: 15px;">السلة فارغة حالياً!</div>`;
+            }
+
+            document.getElementById('cartSummaryList').innerHTML = cartHTML;
+
+            let currentCity = document.getElementById('custCity').value;
+            let shippingCost = (currentCity === 'cairo') ? 45 : (currentCity === 'giza') ? 30 : 0;
+            updateSummaryDisplay(shippingCost);
+        }
+
         function openCheckoutModal() {
             let totalBoxesQty = boxesData.mens.qty + boxesData.womens.qty;
             let totalPerfumesQty = 0;
             perfumesData.forEach(p => totalPerfumesQty += p.qty);
 
             if (totalBoxesQty === 0 && totalPerfumesQty === 0) {
-                alert("برجاء اختيار بوكس أو عطر واحد على الأقل من القائمة!");
+                alert("برجاء اختيار بوكس أو عطر واحد على الأقل قبل إتمام الطلب!");
                 return;
             }
 
@@ -754,23 +909,7 @@
                 return;
             }
 
-            // بناء تفاصيل السلة
-            let cartHTML = "";
-            for (let k in boxesData) {
-                if (boxesData[k].qty > 0) {
-                    let itemTotal = boxesData[k].qty * boxesData[k].price;
-                    cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${boxesData[k].name} (×${boxesData[k].qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
-                }
-            }
-            perfumesData.forEach(p => {
-                if (p.qty > 0) {
-                    let itemTotal = p.qty * p.price;
-                    cartHTML += `<div class="cart-item-row"><span class="cart-item-name">${p.name} 50مل (×${p.qty})</span><span class="cart-item-price">${itemTotal} ج.م</span></div>`;
-                }
-            });
-            document.getElementById('cartSummaryList').innerHTML = cartHTML;
-
-            updateSummaryDisplay(0);
+            renderCartSummary();
             document.getElementById('checkoutModal').style.display = 'flex';
         }
 
@@ -814,15 +953,76 @@
             document.getElementById('orderSummaryText').innerHTML = summaryHTML;
         }
 
-        // إرسال الطلب للواتساب
+        function saveCustomerData() {
+            let customerData = {
+                phone: document.getElementById('custPhone').value.trim(),
+                city: document.getElementById('custCity').value,
+                district: document.getElementById('cairoDistrict') ? document.getElementById('cairoDistrict').value : '',
+                street: document.getElementById('cairoStreet') ? document.getElementById('cairoStreet').value.trim() : '',
+                building: document.getElementById('cairoBuilding') ? document.getElementById('cairoBuilding').value.trim() : '',
+                metro: document.getElementById('gizaMetro') ? document.getElementById('gizaMetro').value : ''
+            };
+            localStorage.setItem('aura_customer_data', JSON.stringify(customerData));
+        }
+
+        function loadCustomerData() {
+            let savedData = localStorage.getItem('aura_customer_data');
+            let resetWrapper = document.getElementById('resetDataWrapper');
+            
+            if (savedData) {
+                let data = JSON.parse(savedData);
+                if (resetWrapper) resetWrapper.style.display = 'block';
+
+                if (data.phone) document.getElementById('custPhone').value = data.phone;
+                if (data.city) {
+                    let citySelect = document.getElementById('custCity');
+                    citySelect.value = data.city;
+                    handleCityChange(); 
+                }
+
+                setTimeout(() => {
+                    if (data.district && document.getElementById('cairoDistrict')) document.getElementById('cairoDistrict').value = data.district;
+                    if (data.street && document.getElementById('cairoStreet')) document.getElementById('cairoStreet').value = data.street;
+                    if (data.building && document.getElementById('cairoBuilding')) document.getElementById('cairoBuilding').value = data.building;
+                    if (data.metro && document.getElementById('gizaMetro')) document.getElementById('gizaMetro').value = data.metro;
+                }, 100);
+            } else {
+                if (resetWrapper) resetWrapper.style.display = 'none';
+            }
+        }
+
+        function clearCustomerData() {
+            if (confirm("هل أنت متأكد من رغبتك في مسح بياناتك المحفوظة؟")) {
+                localStorage.removeItem('aura_customer_data');
+                document.getElementById('custPhone').value = '';
+                document.getElementById('custCity').value = '';
+                handleCityChange();
+                let resetWrapper = document.getElementById('resetDataWrapper');
+                if (resetWrapper) resetWrapper.style.display = 'none';
+                alert("تم مسح البيانات المحفوظة بنجاح.");
+            }
+        }
+
+        window.onload = function() {
+            loadCustomerData();
+        };
+
         function sendWhatsAppOrder() {
             let phone = document.getElementById('custPhone').value.trim();
             let city = document.getElementById('custCity').value;
+
+            let productsTotal = calculateProductsTotal();
+            if (productsTotal === 0) {
+                alert("سلة الشراء فارغة!");
+                return;
+            }
 
             if(!phone || !city) {
                 alert("برجاء إدخال رقم الهاتف وتحديد المحافظة!");
                 return;
             }
+
+            saveCustomerData();
 
             let addressDetails = "";
             let shippingCost = 0;
@@ -844,36 +1044,28 @@
                 shippingCost = 30;
             }
 
-            let productsTotal = calculateProductsTotal();
             let grandTotal = productsTotal + shippingCost;
             let myWhatsApp = "201109138404";
 
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
                             `📞 *الهاتف:* ${phone}\n` +
                             `📍 *العنوان:* ${addressDetails}\n\n` +
-                            `🛍️ *تفاصيل الطلب والكميات:*\n`;
+                            `🛍️ *تفاصيل السلة والكميات:*\n`;
 
             if(boxesData.mens.qty > 0) {
-                orderText += `▪️ *${boxesData.mens.name}* (العدد: ${boxesData.mens.qty}) - السعر: ${boxesData.mens.qty * boxesData.mens.price} ج.م\n`;
-                orderText += `  - العطور المختارة: ${selectedMensPerfumes.join(', ')}\n`;
+                orderText += `▪️ *${boxesData.mens.name}* (العدد: ${boxesData.mens.qty}) - ${boxesData.mens.qty * boxesData.mens.price} ج.م\n`;
+                orderText += `  - العطور: ${selectedMensPerfumes.join(', ')}\n`;
             }
             if(boxesData.womens.qty > 0) {
-                orderText += `▪️ *${boxesData.womens.name}* (العدد: ${boxesData.womens.qty}) - السعر: ${boxesData.womens.qty * boxesData.womens.price} ج.م\n`;
-                orderText += `  - عطور البوكس: Good Girl + Libre + ${selectedWomensHarmony}\n`;
+                orderText += `▪️ *${boxesData.womens.name}* (العدد: ${boxesData.womens.qty}) - ${boxesData.womens.qty * boxesData.womens.price} ج.م\n`;
+                orderText += `  - العطور: Good Girl + Libre + ${selectedWomensHarmony}\n`;
             }
 
-            let hasPerfumes = false;
-            let perfumesText = `▪️ *عطور 50 مل الفردية:*\n`;
             perfumesData.forEach(p => {
                 if (p.qty > 0) {
-                    hasPerfumes = true;
-                    perfumesText += `  - ${p.name} (العدد: ${p.qty}) - ${p.qty * p.price} ج.م\n`;
+                    orderText += `▪️ ${p.name} 50مل (العدد: ${p.qty}) - ${p.qty * p.price} ج.م\n`;
                 }
             });
-
-            if(hasPerfumes) {
-                orderText += perfumesText;
-            }
 
             orderText += `\n💵 *إجمالي المنتجات:* ${productsTotal} ج.م\n` +
                          `🚚 *مصاريف الشحن:* ${shippingCost} ج.م\n` +
