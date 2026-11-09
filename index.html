@@ -886,8 +886,8 @@
             </div>
 
             <div class="form-group">
-                <label>رسالة إهداء أو ملاحظة خاصة (اختياري):</label>
-                <textarea id="giftNote" rows="2" placeholder="هل الطلب هدية؟ اكتب نص الإهداء لنكتبه لك بخط أنيق..."></textarea>
+                <label>رسالة إهداء أو ملاحظة خاصة (اختياري): <span style="color:var(--gold); font-size:10px;">(+20 ج.م خدمة الإهداء)</span></label>
+                <textarea id="giftNote" rows="2" placeholder="هل الطلب هدية؟ اكتب نص الإهداء لنكتبه لك بخط أنيق..." oninput="handleCityChange()"></textarea>
             </div>
 
             <div style="margin-top: 12px; font-size: 13px; color: var(--gold); border-top: 1px dashed #444; padding-top: 8px; line-height: 1.6;" id="orderSummaryText">
@@ -1112,10 +1112,10 @@
             progressBar.style.width = percentage + '%';
 
             if (productsTotal >= targetGoal) {
-                upsellText.innerHTML = `🎉 مبروك! لقد استحقيت **هدية العينة الفاخرة** مع طلبك!`;
+                upsellText.innerHTML = `🎉 مبروك! لقد استحقيت **الشحن المجاني** مع طلبك!`;
             } else {
                 let remaining = targetGoal - productsTotal;
-                upsellText.innerHTML = `🎁 أضف منتجات بقيمة **${remaining} ج.م** إضافية لتستحق هدية العينة الفاخرة!`;
+                upsellText.innerHTML = `🎁 أضف منتجات بقيمة **${remaining} ج.م** إضافية للحصول على **شحن مجاني**!`;
             }
         }
 
@@ -1196,10 +1196,7 @@
 
             document.getElementById('cartSummaryList').innerHTML = cartHTML;
             updateUpsellProgress(productsTotal);
-
-            let currentCity = document.getElementById('custCity').value;
-            let shippingCost = (currentCity === 'cairo') ? 45 : (currentCity === 'giza') ? 30 : 0;
-            updateSummaryDisplay(shippingCost);
+            handleCityChange();
         }
 
         function openCheckoutModal() {
@@ -1254,14 +1251,29 @@
                 shippingCost = 0;
             }
 
+            let productsTotal = calculateProductsTotal();
+            if (productsTotal >= 1500) {
+                shippingCost = 0;
+            }
+
             updateSummaryDisplay(shippingCost);
         }
 
         function updateSummaryDisplay(shippingCost) {
             let productsTotal = calculateProductsTotal();
-            let grandTotal = productsTotal + shippingCost;
+            let giftNote = document.getElementById('giftNote').value.trim();
+            let giftFee = giftNote.length > 0 ? 20 : 0;
+            let grandTotal = productsTotal + shippingCost + giftFee;
+
+            let shippingText = (productsTotal >= 1500 && (document.getElementById('custCity').value === 'cairo' || document.getElementById('custCity').value === 'giza')) ? 
+                                `<span style="color:#25D366; font-weight:bold;">مجاني (تخطي 1500 ج.م 🎉)</span>` : 
+                                `<strong>${shippingCost} ج.م</strong>`;
+
+            let giftTextHTML = giftFee > 0 ? `رسوم خدمة الإهداء: <strong>20 ج.م</strong><br>` : ``;
+
             let summaryHTML = `إجمالي المنتجات: <strong>${productsTotal} ج.م</strong><br>` +
-                              `مصاريف الشحن: <strong>${shippingCost} ج.م</strong><br>` +
+                              `مصاريف الشحن: ${shippingText}<br>` +
+                              giftTextHTML +
                               `<span style="color:#fff; font-size:14px;">الإجمالي الكلي للدفع: <strong>${grandTotal} ج.م</strong></span>`;
             document.getElementById('orderSummaryText').innerHTML = summaryHTML;
         }
@@ -1339,7 +1351,11 @@
             saveCustomerData();
 
             let addressDetails = "";
-            let shippingCost = 0;
+            let shippingCost = (city === 'cairo') ? 45 : (city === 'giza') ? 30 : 0;
+
+            if (productsTotal >= 1500) {
+                shippingCost = 0; // شحن مجاني
+            }
 
             if(city === 'cairo') {
                 let district = document.getElementById('cairoDistrict').value;
@@ -1351,14 +1367,13 @@
                     return;
                 }
                 addressDetails = `القاهرة (${district}) - ش: ${street} - عمارة: ${building}`;
-                shippingCost = 45;
             } else if(city === 'giza') {
                 let metro = document.getElementById('gizaMetro').value;
                 addressDetails = `الجيزة - الاستلام عند محطة مترو: ${metro}`;
-                shippingCost = 30;
             }
 
-            let grandTotal = productsTotal + shippingCost;
+            let giftFee = giftNote.length > 0 ? 20 : 0;
+            let grandTotal = productsTotal + shippingCost + giftFee;
             let myWhatsApp = "201109138404";
 
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
@@ -1366,7 +1381,8 @@
                             `📍 *العنوان:* ${addressDetails}\n\n`;
 
             if (giftNote) {
-                orderText += `💌 *رسالة الإهداء:* ${giftNote}\n\n`;
+                orderText += `💌 *رسالة الإهداء:* ${giftNote}\n` +
+                             `🎁 *خدمة الإهداء والترتيب:* 20 ج.م\n\n`;
             }
 
             orderText += `🛍️ *تفاصيل السلة والكميات:*\n`;
@@ -1386,13 +1402,16 @@
                 }
             });
 
-            if (productsTotal >= 1500) {
-                orderText += `\n🎁 *المميزات:* استحق هدية العينة الفاخرة!\n`;
-            }
+            let shippingLabel = shippingCost === 0 ? `مجاني (تخطي 1500 ج.م)` : `${shippingCost} ج.م`;
 
             orderText += `\n💵 *إجمالي المنتجات:* ${productsTotal} ج.م\n` +
-                         `🚚 *مصاريف الشحن:* ${shippingCost} ج.م\n` +
-                         `💰 *الإجمالي الكلي:* ${grandTotal} ج.م`;
+                         `🚚 *مصاريف الشحن:* ${shippingLabel}\n`;
+            
+            if(giftFee > 0) {
+                orderText += `🎀 *رسوم الإهداء:* ${giftFee} ج.م\n`;
+            }
+
+            orderText += `💰 *الإجمالي الكلي للدفع:* ${grandTotal} ج.م`;
 
             let url = `https://wa.me/${myWhatsApp}?text=${encodeURIComponent(orderText)}`;
             window.open(url, '_blank');
