@@ -19,7 +19,7 @@
             color: var(--light);
             margin: 0;
             padding: 15px;
-            padding-bottom: 90px; /* مسافة أمان عشان الشريط العائم ما يغطي آخر المحتوى */
+            padding-bottom: 90px;
             text-align: center;
         }
         .container {
@@ -143,6 +143,15 @@
             border-radius: 8px;
             margin-bottom: 6px;
             border: 1px solid #333;
+            cursor: pointer;
+        }
+        .notes-btn-link {
+            font-size: 10px;
+            color: var(--gold);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 4px;
+            display: inline-block;
         }
         .perfume-card.active, .box-card.active {
             border-color: var(--gold);
@@ -283,7 +292,33 @@
             background: rgba(37, 211, 102, 0.1);
         }
 
-        /* تصميم شريط السلة العائم (Floating Cart Bar) */
+        .upsell-box {
+            background: #1b1b1b;
+            border: 1px solid #333;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            text-align: right;
+        }
+        .upsell-text {
+            font-size: 11px;
+            color: #ccc;
+            margin-bottom: 6px;
+        }
+        .upsell-progress-container {
+            width: 100%;
+            background: #2a2a2a;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .upsell-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #b76e79, #d4af37);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
         .floating-cart {
             position: fixed;
             bottom: 0;
@@ -329,7 +364,6 @@
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
 
-        /* تصميم إشعارات التوست (Toast Notifications) */
         #toastContainer {
             position: fixed;
             top: 20px;
@@ -364,6 +398,36 @@
         }
         @keyframes fadeOut {
             to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .notes-modal-content {
+            background: #181818;
+            border: 1px solid var(--gold);
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 380px;
+            text-align: right;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+            direction: rtl;
+        }
+        .notes-modal-content h3 {
+            color: var(--gold);
+            margin-top: 0;
+            text-align: center;
+            font-size: 18px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+        }
+        .note-row {
+            margin-bottom: 12px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .note-row strong {
+            color: var(--gold);
+            display: block;
+            font-size: 13px;
         }
 
         .reviews-section {
@@ -428,7 +492,7 @@
             color: var(--gold);
             margin-bottom: 4px;
         }
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 10px;
             background: #222;
@@ -437,6 +501,7 @@
             border-radius: 8px;
             box-sizing: border-box;
             font-size: 13px;
+            font-family: 'Tahoma', sans-serif;
         }
         .notice-box {
             background: #232012;
@@ -457,7 +522,7 @@
             border-radius: 8px;
             margin-bottom: 15px;
             font-size: 12px;
-            max-height: 160px;
+            max-height: 140px;
             overflow-y: auto;
         }
         .cart-item-row {
@@ -519,7 +584,6 @@
 </head>
 <body>
 
-    <!-- حاوية تنبيهات الـ Toast -->
     <div id="toastContainer"></div>
 
     <div class="container">
@@ -554,7 +618,7 @@
             <div class="box-card" id="mensBoxCard">
                 <img src="mens-box.jpg" alt="البوكس الرجالي">
                 <h4>البوكس الرجالي</h4>
-                <p>اختر 3 عطور حجم العبوه 15 ملي</p>
+                <p>اختر 3 عطور</p>
                 <div class="price-tag">200 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changeBoxQty('mens', -1)">-</button>
@@ -564,7 +628,7 @@
             </div>
             <div class="box-card" id="womensBoxCard">
                 <img src="بوكس حريمي.jpg" alt="البوكس النسائي">
-                <h4>البوكس النسائي (روزشولد) 3 عبوات * 15 ملي </h4>
+                <h4>البوكس النسائي (روزشولد)</h4>
                 <p>عطرين + Harmony</p>
                 <div class="price-tag">200 ج.م</div>
                 <div class="qty-control">
@@ -603,9 +667,10 @@
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
             <div class="perfume-card" id="card-perfume-0">
-                <img src="perfume-50ml.jpg" alt="Sauvage">
+                <img src="perfume-50ml.jpg" alt="Sauvage" onclick="showNotesModal('Sauvage')">
                 <h4>Sauvage</h4>
                 <p>انتعاش وهيبة</p>
+                <span class="notes-btn-link" onclick="showNotesModal('Sauvage')">✨ استكشف النوتات العطرية</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(0, -1)">-</button>
@@ -614,9 +679,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-1">
-                <img src="perfume-50ml.jpg" alt="Aventus">
+                <img src="perfume-50ml.jpg" alt="Aventus" onclick="showNotesModal('Aventus')">
                 <h4>Aventus</h4>
                 <p>ملكي وثابت</p>
+                <span class="notes-btn-link" onclick="showNotesModal('Aventus')">✨ استكشف النوتات العطرية</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(1, -1)">-</button>
@@ -625,9 +691,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-2">
-                <img src="perfume-50ml.jpg" alt="1 Million">
+                <img src="perfume-50ml.jpg" alt="1 Million" onclick="showNotesModal('1 Million')">
                 <h4>1 Million</h4>
                 <p>عبق الفخامة</p>
+                <span class="notes-btn-link" onclick="showNotesModal('1 Million')">✨ استكشف النوتات العطرية</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(2, -1)">-</button>
@@ -636,9 +703,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-3">
-                <img src="لبري.jpg" alt="Labri">
+                <img src="لبري.jpg" alt="Labri" onclick="showNotesModal('Labri')">
                 <h4>Labri</h4>
                 <p>رشة منعشة ومشرقة من اللافندر الفرنسي</p>
+                <span class="notes-btn-link" onclick="showNotesModal('Labri')">✨ استكشف النوتات العطرية</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(3, -1)">-</button>
@@ -647,9 +715,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-4">
-                <img src="perfume-50ml.jpg" alt="Intense">
+                <img src="perfume-50ml.jpg" alt="Intense" onclick="showNotesModal('Intense')">
                 <h4>Intense</h4>
                 <p>فوحان عالي</p>
+                <span class="notes-btn-link" onclick="showNotesModal('Intense')">✨ استكشف النوتات العطرية</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(4, -1)">-</button>
@@ -658,9 +727,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-5">
-                <img src="جودجيرل.jpg" alt="Good Girl">
+                <img src="جودجيرل.jpg" alt="Good Girl" onclick="showNotesModal('Good Girl')">
                 <h4>Good Girl</h4>
                 <p>سحر وأنوثة</p>
+                <span class="notes-btn-link" onclick="showNotesModal('Good Girl')">✨ استكشف النوتات العطرية</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(5, -1)">-</button>
@@ -669,9 +739,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-6" style="grid-column: span 2;">
-                <img src="هارموني.jpg" alt="Harmony" style="height: 120px;">
+                <img src="هارموني.jpg" alt="Harmony" style="height: 120px;" onclick="showNotesModal('Harmony')">
                 <h4>Harmony</h4>
                 <p>عطر AURA الخاص الفاخر</p>
+                <span class="notes-btn-link" onclick="showNotesModal('Harmony')">✨ استكشف الطابع العطري</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control" style="max-width: 200px; margin: 8px auto 0;">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(6, -1)">-</button>
@@ -700,7 +771,6 @@
         </div>
     </div>
 
-    <!-- شريط السلة العائم -->
     <div class="floating-cart" id="floatingCart">
         <div class="floating-cart-info">
             <div class="fc-title" id="floatingCartCount">0 منتجات في السلة</div>
@@ -709,10 +779,26 @@
         <button class="floating-cart-btn" onclick="openCheckoutModal()">عرض السلة وإتمام الطلب</button>
     </div>
 
+    <!-- نافذة النوتات العطرية -->
+    <div class="modal" id="notesModal">
+        <div class="notes-modal-content">
+            <h3 id="notesTitle">النوتات العطرية</h3>
+            <div id="notesBody"></div>
+            <button class="close-modal" onclick="closeNotesModal()">إغلاق</button>
+        </div>
+    </div>
+
     <div class="modal" id="checkoutModal">
         <div class="modal-content">
             <h3>سلة الشراء وإتمام الطلب</h3>
             
+            <div class="upsell-box" id="upsellBox">
+                <div class="upsell-text" id="upsellText">جاري الحساب...</div>
+                <div class="upsell-progress-container">
+                    <div class="upsell-progress-bar" id="upsellProgressBar"></div>
+                </div>
+            </div>
+
             <div style="text-align: left; margin-bottom: 10px; display: none;" id="resetDataWrapper">
                 <button type="button" onclick="clearCustomerData()" style="background: transparent; border: none; color: var(--rose-gold); font-size: 11px; cursor: pointer; text-decoration: underline; padding: 0;">
                     🔄 بياناتي غير صحيحة؟ مسح البيانات المحفوظة
@@ -799,6 +885,11 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label>رسالة إهداء أو ملاحظة خاصة (اختياري):</label>
+                <textarea id="giftNote" rows="2" placeholder="هل الطلب هدية؟ اكتب نص الإهداء لنكتبه لك بخط أنيق..."></textarea>
+            </div>
+
             <div style="margin-top: 12px; font-size: 13px; color: var(--gold); border-top: 1px dashed #444; padding-top: 8px; line-height: 1.6;" id="orderSummaryText">
                 إجمالي المنتجات: 0 ج.م<br>
                 مصاريف الشحن: 0 ج.م<br>
@@ -841,16 +932,84 @@
             { name: 'Sauvage', price: 250, qty: 0 },
             { name: 'Aventus', price: 250, qty: 0 },
             { name: '1 Million', price: 250, qty: 0 },
-            { name: 'Black Dakkar', price: 250, qty: 0 },
+            { name: 'Labri', price: 250, qty: 0 },
             { name: 'Intense', price: 250, qty: 0 },
             { name: 'Good Girl', price: 250, qty: 0 },
             { name: 'Harmony', price: 250, qty: 0 }
         ];
 
+        const perfumeNotesInfo = {
+            'Sauvage': {
+                top: "البرغموت المنعش والفلفل الوردي",
+                heart: "فلفل سيشوان، اللافندر، وخشب الصندل",
+                base: "عنبر الـ Ambroxan، الأرز، واللمسات الخشبية الدافئة"
+            },
+            'Aventus': {
+                top: "الأناناس الملكي، التفاح الأخضر، الكشمش الأسود",
+                heart: "خشب البتولا، الياسمين المغربي، الورد",
+                base: "مسك فاخر، عنبر الحوت، وخشب الصندل"
+            },
+            '1 Million': {
+                top: "الجريب فروت، النعناع الطازج، والماندرين الدموي",
+                heart: "الورد، القرفة الحارة، والتوابل الفاخرة",
+                base: "الجلد الأبيض، العنبر، وخشب الأكاشيا"
+            },
+            'Labri': {
+                top: "اللافندر الفرنسي، المندرين، والكشمش الأسود",
+                heart: "زهر البرتقال وزهر الياسمين النقية",
+                base: "فانيليا مدغشقر، المسك الأبيض، وخشب الأرز"
+            },
+            'Intense': {
+                top: "السوسن الإيطالي ولمسات الميموزا الفاخرة",
+                heart: "نبات الأمبريت بفوحان عالي وعبير الخزامى",
+                base: "خشب الأرز والجلود الفاخرة ذات الثبات العالي"
+            },
+            'Good Girl': {
+                top: "اللوز، القهوة الفاخرة، والبرغموت",
+                heart: "مسك الروم، الياسمين السامباك، والسامباك النقية",
+                base: "حبوب التونكا، الكاكاو الغني، الفانيليا، وخشب الصندل"
+            },
+            'Harmony': {
+                special: "✨ عطر AURA الخاص الحصري<br>تركيبة سرية استثنائية تم تجميعها بعناية فائقة لتمنحك طابعاً خاصاً من التميز والفوحان الملكي الذي لا يُشبه أحداً."
+            }
+        };
+
+        function showNotesModal(name) {
+            const info = perfumeNotesInfo[name];
+            const titleEl = document.getElementById('notesTitle');
+            const bodyEl = document.getElementById('notesBody');
+
+            titleEl.innerText = `النوتات العطرية - ${name}`;
+
+            if (info.special) {
+                bodyEl.innerHTML = `<div class="note-row" style="text-align:center; color:#ddd; padding: 10px 0;">${info.special}</div>`;
+            } else {
+                bodyEl.innerHTML = `
+                    <div class="note-row">
+                        <strong>🍃 إفتتاحية العطر (القمة):</strong>
+                        ${info.top}
+                    </div>
+                    <div class="note-row">
+                        <strong>🌸 قلب العطر (الوسط):</strong>
+                        ${info.heart}
+                    </div>
+                    <div class="note-row">
+                        <strong>🪵 قاعدة العطر (الثبات والفوحان):</strong>
+                        ${info.base}
+                    </div>
+                `;
+            }
+
+            document.getElementById('notesModal').style.display = 'flex';
+        }
+
+        function closeNotesModal() {
+            document.getElementById('notesModal').style.display = 'none';
+        }
+
         let selectedMensPerfumes = [];
         let selectedWomensHarmony = null;
 
-        // دالة إظهار تنبيهات الـ Toast الاحترافية
         function showToast(message) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -944,6 +1103,22 @@
             return count;
         }
 
+        function updateUpsellProgress(productsTotal) {
+            let targetGoal = 1500;
+            let percentage = Math.min((productsTotal / targetGoal) * 100, 100);
+            let progressBar = document.getElementById('upsellProgressBar');
+            let upsellText = document.getElementById('upsellText');
+
+            progressBar.style.width = percentage + '%';
+
+            if (productsTotal >= targetGoal) {
+                upsellText.innerHTML = `🎉 مبروك! لقد استحقيت **هدية العينة الفاخرة** مع طلبك!`;
+            } else {
+                let remaining = targetGoal - productsTotal;
+                upsellText.innerHTML = `🎁 أضف منتجات بقيمة **${remaining} ج.م** إضافية لتستحق هدية العينة الفاخرة!`;
+            }
+        }
+
         function removeCartItem(type, index) {
             if (type === 'box') {
                 boxesData[index].qty = 0;
@@ -970,7 +1145,6 @@
             let totalCount = getTotalItemsCount();
             let productsTotal = calculateProductsTotal();
 
-            // التحكم في ظهور واختفاء الشريط العائم
             let floatingCart = document.getElementById('floatingCart');
             if (totalCount > 0) {
                 floatingCart.classList.add('visible');
@@ -1021,6 +1195,7 @@
             }
 
             document.getElementById('cartSummaryList').innerHTML = cartHTML;
+            updateUpsellProgress(productsTotal);
 
             let currentCity = document.getElementById('custCity').value;
             let shippingCost = (currentCity === 'cairo') ? 45 : (currentCity === 'giza') ? 30 : 0;
@@ -1148,6 +1323,7 @@
         function sendWhatsAppOrder() {
             let phone = document.getElementById('custPhone').value.trim();
             let city = document.getElementById('custCity').value;
+            let giftNote = document.getElementById('giftNote').value.trim();
 
             let productsTotal = calculateProductsTotal();
             if (productsTotal === 0) {
@@ -1187,8 +1363,13 @@
 
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
                             `📞 *الهاتف:* ${phone}\n` +
-                            `📍 *العنوان:* ${addressDetails}\n\n` +
-                            `🛍️ *تفاصيل السلة والكميات:*\n`;
+                            `📍 *العنوان:* ${addressDetails}\n\n`;
+
+            if (giftNote) {
+                orderText += `💌 *رسالة الإهداء:* ${giftNote}\n\n`;
+            }
+
+            orderText += `🛍️ *تفاصيل السلة والكميات:*\n`;
 
             if(boxesData.mens.qty > 0) {
                 orderText += `▪️ *${boxesData.mens.name}* (العدد: ${boxesData.mens.qty}) - ${boxesData.mens.qty * boxesData.mens.price} ج.م\n`;
@@ -1204,6 +1385,10 @@
                     orderText += `▪️ ${p.name} 50مل (العدد: ${p.qty}) - ${p.qty * p.price} ج.م\n`;
                 }
             });
+
+            if (productsTotal >= 1500) {
+                orderText += `\n🎁 *المميزات:* استحق هدية العينة الفاخرة!\n`;
+            }
 
             orderText += `\n💵 *إجمالي المنتجات:* ${productsTotal} ج.م\n` +
                          `🚚 *مصاريف الشحن:* ${shippingCost} ج.م\n` +
