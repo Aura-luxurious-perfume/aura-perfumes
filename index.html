@@ -75,6 +75,7 @@
             min-width: 100%;
             box-sizing: border-box;
             padding: 15px;
+            cursor: pointer;
         }
         .slide img {
             width: 100%;
@@ -138,14 +139,19 @@
         }
         .perfume-card img, .box-card img {
             width: 100%;
-            height: 100px;
+            height: 110px;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 6px;
             border: 1px solid #333;
             cursor: pointer;
+            transition: transform 0.2s;
         }
-        .notes-btn-link {
+        .perfume-card img:hover, .box-card img:hover {
+            transform: scale(1.02);
+            border-color: var(--gold);
+        }
+        .details-btn-link {
             font-size: 10px;
             color: var(--gold);
             text-decoration: underline;
@@ -162,6 +168,10 @@
             margin: 4px 0;
             font-size: 13px;
             color: #fff;
+            cursor: pointer;
+        }
+        .perfume-card h4:hover, .box-card h4:hover {
+            color: var(--gold);
         }
         .perfume-card p, .box-card p {
             margin: 0;
@@ -292,6 +302,193 @@
             background: rgba(37, 211, 102, 0.1);
         }
 
+        /* صفحة تفاصيل المنتج الكاملة */
+        .product-page-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark);
+            z-index: 1500;
+            overflow-y: auto;
+            padding: 15px;
+            padding-bottom: 100px;
+            box-sizing: border-box;
+            animation: fadeInPage 0.25s ease-out;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-page-container {
+            max-width: 500px;
+            margin: auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+            text-align: right;
+        }
+        .pp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .pp-back-btn {
+            background: #222;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .pp-back-btn:hover {
+            background: var(--gold);
+            color: #0b0b0b;
+        }
+        .pp-brand-tag {
+            color: var(--gold);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+        .pp-image-wrapper {
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #333;
+            margin-bottom: 16px;
+            background: #1b1b1b;
+        }
+        .pp-image-wrapper img {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+            display: block;
+        }
+        .pp-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .pp-size-badge {
+            background: #222;
+            color: #ddd;
+            border: 1px solid #444;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .pp-price-badge {
+            color: var(--gold);
+            font-size: 20px;
+            font-weight: bold;
+            background: rgba(212, 175, 55, 0.12);
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+        .pp-title {
+            color: #fff;
+            font-size: 22px;
+            margin: 8px 0 12px;
+        }
+        .pp-description {
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.7;
+            background: #1a1a1a;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #2a2a2a;
+            margin-bottom: 15px;
+        }
+        .pp-notes-box {
+            background: #181818;
+            border: 1px solid #333;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+        .pp-notes-box h4 {
+            color: var(--gold);
+            margin: 0 0 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #2b2b2b;
+            padding-bottom: 6px;
+        }
+        .pp-note-item {
+            font-size: 12px;
+            color: #bbb;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .pp-note-item strong {
+            color: var(--gold);
+        }
+        .pp-actions-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .pp-qty-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 6px 10px;
+            width: 115px;
+        }
+        .pp-qty-selector button {
+            background: var(--gold);
+            color: #0b0b0b;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .pp-qty-selector span {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .pp-add-cart-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #d4af37, #aa8c2c);
+            color: #0b0b0b;
+            border: none;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transition: 0.2s;
+        }
+        .pp-add-cart-btn:hover {
+            opacity: 0.92;
+            transform: scale(1.01);
+        }
+
         .upsell-box {
             background: #1b1b1b;
             border: 1px solid #333;
@@ -324,7 +521,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(18, 18, 18, 0.95);
+            background: rgba(18, 18, 18, 0.96);
             backdrop-filter: blur(10px);
             border-top: 1px solid var(--gold);
             padding: 12px 20px;
@@ -332,7 +529,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 999;
+            z-index: 1600;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
             transform: translateY(100%);
             transition: transform 0.3s ease-in-out;
@@ -369,7 +566,7 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2000;
+            z-index: 2500;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -398,36 +595,6 @@
         }
         @keyframes fadeOut {
             to { opacity: 0; transform: translateY(-10px); }
-        }
-
-        .notes-modal-content {
-            background: #181818;
-            border: 1px solid var(--gold);
-            padding: 20px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 380px;
-            text-align: right;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
-            direction: rtl;
-        }
-        .notes-modal-content h3 {
-            color: var(--gold);
-            margin-top: 0;
-            text-align: center;
-            font-size: 18px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 8px;
-        }
-        .note-row {
-            margin-bottom: 12px;
-            font-size: 12px;
-            line-height: 1.6;
-        }
-        .note-row strong {
-            color: var(--gold);
-            display: block;
-            font-size: 13px;
         }
 
         .reviews-section {
@@ -460,7 +627,7 @@
             background: rgba(0,0,0,0.85);
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
             backdrop-filter: blur(5px);
         }
         .modal-content {
@@ -586,7 +753,8 @@
 
     <div id="toastContainer"></div>
 
-    <div class="container">
+    <!-- الصفحة الرئيسية للمتجر -->
+    <div class="container" id="mainStoreContainer">
         <div class="top-banner">
             🔥 عروض لفترة محدودة: اطلب الآن واحصل على فخامة لا تُنسى!
         </div>
@@ -596,15 +764,15 @@
 
         <div class="slider">
             <div class="slides-container" id="sliderContainer">
-                <div class="slide">
+                <div class="slide" onclick="openProductPage('box', 'mens')">
                     <img src="mens-box.jpg" alt="البوكس الرجالي">
                     <h3>البوكس الرجالي (3 × 15 مل)</h3>
-                    <p>مجموعة الفخامة والرجولة الطاغية</p>
+                    <p>مجموعة الفخامة والرجولة الطاغية - اضغط للتفاصيل</p>
                 </div>
-                <div class="slide">
+                <div class="slide" onclick="openProductPage('box', 'womens')">
                     <img src="بوكس حريمي.jpg" alt="البوكس النسائي">
                     <h3>البوكس النسائي - روز جولد (3 × 15 مل)</h3>
-                    <p>إصدار الروزشولد الساحر بثبات عالي</p>
+                    <p>إصدار الروزشولد الساحر بثبات عالي - اضغط للتفاصيل</p>
                 </div>
             </div>
             <div class="slider-nav">
@@ -616,9 +784,10 @@
         <div class="section-title">اختر البوكسات المفضلة لديك</div>
         <div class="grid">
             <div class="box-card" id="mensBoxCard">
-                <img src="mens-box.jpg" alt="البوكس الرجالي">
-                <h4>البوكس الرجالي</h4>
-                <p>اختر 3 عطور</p>
+                <img src="mens-box.jpg" alt="البوكس الرجالي" onclick="openProductPage('box', 'mens')">
+                <h4 onclick="openProductPage('box', 'mens')">البوكس الرجالي</h4>
+                <p>3 × 15 مل (اختر 3 عطور)</p>
+                <span class="details-btn-link" onclick="openProductPage('box', 'mens')">🔍 عرض التفاصيل</span>
                 <div class="price-tag">200 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changeBoxQty('mens', -1)">-</button>
@@ -627,9 +796,10 @@
                 </div>
             </div>
             <div class="box-card" id="womensBoxCard">
-                <img src="بوكس حريمي.jpg" alt="البوكس النسائي">
-                <h4>البوكس النسائي (روزشولد)</h4>
-                <p>عطرين + Harmony</p>
+                <img src="بوكس حريمي.jpg" alt="البوكس النسائي" onclick="openProductPage('box', 'womens')">
+                <h4 onclick="openProductPage('box', 'womens')">البوكس النسائي (روزشولد)</h4>
+                <p>3 × 15 مل (عطرين + Harmony)</p>
+                <span class="details-btn-link" onclick="openProductPage('box', 'womens')">🔍 عرض التفاصيل</span>
                 <div class="price-tag">200 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changeBoxQty('womens', -1)">-</button>
@@ -667,10 +837,10 @@
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         <div class="grid">
             <div class="perfume-card" id="card-perfume-0">
-                <img src="perfume-50ml.jpg" alt="Sauvage" onclick="showNotesModal('Sauvage')">
-                <h4>Sauvage</h4>
+                <img src="perfume-50ml.jpg" alt="Sauvage" onclick="openProductPage('perfume', 0)">
+                <h4 onclick="openProductPage('perfume', 0)">Sauvage</h4>
                 <p>انتعاش وهيبة</p>
-                <span class="notes-btn-link" onclick="showNotesModal('Sauvage')">✨ استكشف النوتات العطرية</span>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 0)">✨ عرض التفاصيل والمكونات</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(0, -1)">-</button>
@@ -679,10 +849,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-1">
-                <img src="perfume-50ml.jpg" alt="Aventus" onclick="showNotesModal('Aventus')">
-                <h4>Aventus</h4>
+                <img src="perfume-50ml.jpg" alt="Aventus" onclick="openProductPage('perfume', 1)">
+                <h4 onclick="openProductPage('perfume', 1)">Aventus</h4>
                 <p>ملكي وثابت</p>
-                <span class="notes-btn-link" onclick="showNotesModal('Aventus')">✨ استكشف النوتات العطرية</span>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 1)">✨ عرض التفاصيل والمكونات</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(1, -1)">-</button>
@@ -691,10 +861,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-2">
-                <img src="perfume-50ml.jpg" alt="1 Million" onclick="showNotesModal('1 Million')">
-                <h4>1 Million</h4>
+                <img src="perfume-50ml.jpg" alt="1 Million" onclick="openProductPage('perfume', 2)">
+                <h4 onclick="openProductPage('perfume', 2)">1 Million</h4>
                 <p>عبق الفخامة</p>
-                <span class="notes-btn-link" onclick="showNotesModal('1 Million')">✨ استكشف النوتات العطرية</span>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 2)">✨ عرض التفاصيل والمكونات</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(2, -1)">-</button>
@@ -703,10 +873,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-3">
-                <img src="لبري.jpg" alt="Labri" onclick="showNotesModal('Labri')">
-                <h4>Labri</h4>
-                <p>رشة منعشة ومشرقة من اللافندر الفرنسي</p>
-                <span class="notes-btn-link" onclick="showNotesModal('Labri')">✨ استكشف النوتات العطرية</span>
+                <img src="لبري.jpg" alt="Labri" onclick="openProductPage('perfume', 3)">
+                <h4 onclick="openProductPage('perfume', 3)">Labri</h4>
+                <p>رشة منعشة ومشرقة من اللافندر</p>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 3)">✨ عرض التفاصيل والمكونات</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(3, -1)">-</button>
@@ -715,10 +885,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-4">
-                <img src="perfume-50ml.jpg" alt="Intense" onclick="showNotesModal('Intense')">
-                <h4>Intense</h4>
+                <img src="perfume-50ml.jpg" alt="Intense" onclick="openProductPage('perfume', 4)">
+                <h4 onclick="openProductPage('perfume', 4)">Intense</h4>
                 <p>فوحان عالي</p>
-                <span class="notes-btn-link" onclick="showNotesModal('Intense')">✨ استكشف النوتات العطرية</span>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 4)">✨ عرض التفاصيل والمكونات</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(4, -1)">-</button>
@@ -727,10 +897,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-5">
-                <img src="جودجيرل.jpg" alt="Good Girl" onclick="showNotesModal('Good Girl')">
-                <h4>Good Girl</h4>
+                <img src="جودجيرل.jpg" alt="Good Girl" onclick="openProductPage('perfume', 5)">
+                <h4 onclick="openProductPage('perfume', 5)">Good Girl</h4>
                 <p>سحر وأنوثة</p>
-                <span class="notes-btn-link" onclick="showNotesModal('Good Girl')">✨ استكشف النوتات العطرية</span>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 5)">✨ عرض التفاصيل والمكونات</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(5, -1)">-</button>
@@ -739,10 +909,10 @@
                 </div>
             </div>
             <div class="perfume-card" id="card-perfume-6" style="grid-column: span 2;">
-                <img src="هارموني.jpg" alt="Harmony" style="height: 120px;" onclick="showNotesModal('Harmony')">
-                <h4>Harmony</h4>
+                <img src="هارموني.jpg" alt="Harmony" style="height: 130px;" onclick="openProductPage('perfume', 6)">
+                <h4 onclick="openProductPage('perfume', 6)">Harmony</h4>
                 <p>عطر AURA الخاص الفاخر</p>
-                <span class="notes-btn-link" onclick="showNotesModal('Harmony')">✨ استكشف الطابع العطري</span>
+                <span class="details-btn-link" onclick="openProductPage('perfume', 6)">✨ عرض التفاصيل والطابع العطري</span>
                 <div class="price-tag">250 ج.م</div>
                 <div class="qty-control" style="max-width: 200px; margin: 8px auto 0;">
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(6, -1)">-</button>
@@ -771,6 +941,48 @@
         </div>
     </div>
 
+    <!-- صفحة تفاصيل المنتج (تفتح عند الضغط على أي منتج) -->
+    <div class="product-page-overlay" id="productPageOverlay">
+        <div class="product-page-container">
+            <div class="pp-header">
+                <button type="button" class="pp-back-btn" onclick="closeProductPage()">→ رجوع للمتجر</button>
+                <span class="pp-brand-tag">A U R A</span>
+            </div>
+
+            <div class="pp-image-wrapper">
+                <img id="ppImage" src="" alt="صورة المنتج">
+            </div>
+
+            <div class="pp-meta-row">
+                <span class="pp-size-badge" id="ppSize">الحجم: 50 مل</span>
+                <span class="pp-price-badge" id="ppPrice">250 ج.م</span>
+            </div>
+
+            <h2 class="pp-title" id="ppTitle">اسم المنتج</h2>
+
+            <div class="pp-description" id="ppDescription">
+                وصف المنتج يظهر هنا...
+            </div>
+
+            <div class="pp-notes-box" id="ppNotesContainer">
+                <h4>✨ الهرم العطري والمكونات</h4>
+                <div id="ppNotesBody"></div>
+            </div>
+
+            <div class="pp-actions-box">
+                <div class="pp-qty-selector">
+                    <button type="button" onclick="changeDetailQty(-1)">-</button>
+                    <span id="ppQtyDisplay">1</span>
+                    <button type="button" onclick="changeDetailQty(1)">+</button>
+                </div>
+                <button type="button" class="pp-add-cart-btn" onclick="addCurrentProductToCart()">
+                    🛒 أضف إلى عربة التسوق
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- السلة العائمة -->
     <div class="floating-cart" id="floatingCart">
         <div class="floating-cart-info">
             <div class="fc-title" id="floatingCartCount">0 منتجات في السلة</div>
@@ -779,15 +991,7 @@
         <button class="floating-cart-btn" onclick="openCheckoutModal()">عرض السلة وإتمام الطلب</button>
     </div>
 
-    <!-- نافذة النوتات العطرية -->
-    <div class="modal" id="notesModal">
-        <div class="notes-modal-content">
-            <h3 id="notesTitle">النوتات العطرية</h3>
-            <div id="notesBody"></div>
-            <button class="close-modal" onclick="closeNotesModal()">إغلاق</button>
-        </div>
-    </div>
-
+    <!-- نافذة إتمام الطلب -->
     <div class="modal" id="checkoutModal">
         <div class="modal-content">
             <h3>سلة الشراء وإتمام الطلب</h3>
@@ -924,87 +1128,189 @@
         }, 4000);
 
         let boxesData = {
-            mens: { name: "البوكس الرجالي (3×15 مل)", price: 200, qty: 0 },
-            womens: { name: "البوكس النسائي - روزجولد (3×15 مل)", price: 200, qty: 0 }
+            mens: { 
+                name: "البوكس الرجالي الفاخر", 
+                size: "3 زجاجات × 15 مل (45 مل إجمالي)",
+                price: 200, 
+                qty: 0,
+                image: "mens-box.jpg",
+                description: "مجموعة مصممة خصيصاً للرجل العصري الباحث عن التميز والجاذبية. يتيح لك البوكس اختيار 3 عطور من أشهر وأفخم العطور الرجالية بحجم عملي 15 مل لكل زجاجة، مثالي للاستخدام اليومي، السفر، أو كهدية راقية بتغليف فاخر.",
+                includes: "يحتوي على 3 زجاجات سعة 15 مل من اختيارك (Sauvage, Aventus, 1 Million, Black Dakkar, Intense, Extreme) بتركيز عالٍ وثبات يدوم طويلاً."
+            },
+            womens: { 
+                name: "البوكس النسائي (روز جولد)", 
+                size: "3 زجاجات × 15 مل (45 مل إجمالي)",
+                price: 200, 
+                qty: 0,
+                image: "بوكس حريمي.jpg",
+                description: "إصدار الروز جولد الساحر الذي يجمع بين الأنوثة الطاغية والرقي. يتضمن عطرين من أيقونات العطور النسائية العالمية بالإضافة إلى عطر ثالث من اختيارك ليمنحك تجربة عطرية متكاملة تناسب جميع أوقاتك.",
+                includes: "يحتوي على: عطر Good Girl (15 مل) + عطر Libre (15 مل) + عطر ثالث من اختيارك (Harmony الخاص أو تكرار أحد العطرين)."
+            }
         };
 
         let perfumesData = [
-            { name: 'Sauvage', price: 250, qty: 0 },
-            { name: 'Aventus', price: 250, qty: 0 },
-            { name: '1 Million', price: 250, qty: 0 },
-            { name: 'Labri', price: 250, qty: 0 },
-            { name: 'Intense', price: 250, qty: 0 },
-            { name: 'Good Girl', price: 250, qty: 0 },
-            { name: 'Harmony', price: 250, qty: 0 }
-        ];
-
-        const perfumeNotesInfo = {
-            'Sauvage': {
+            { 
+                name: 'Sauvage', 
+                size: '50 مل - Eau de Parfum',
+                price: 250, 
+                qty: 0, 
+                image: 'perfume-50ml.jpg',
+                description: 'عطر رجالي أيقوني يجمع بين الانتعاش الحاد والهيبة المطلقة. تركيبة مستوحاة من المساحات المفتوحة تحت سماء زرقاء صافية، تمنحك حضوراً قوياً وجاذبية لا تقاوم في العمل والمناسبات.',
                 top: "البرغموت المنعش والفلفل الوردي",
                 heart: "فلفل سيشوان، اللافندر، وخشب الصندل",
                 base: "عنبر الـ Ambroxan، الأرز، واللمسات الخشبية الدافئة"
             },
-            'Aventus': {
+            { 
+                name: 'Aventus', 
+                size: '50 مل - Eau de Parfum',
+                price: 250, 
+                qty: 0, 
+                image: 'perfume-50ml.jpg',
+                description: 'عطر القوة والنجاح والرقي الملكي. يتميز بمزيج فريد يبدأ بنفحات الفواكه المنعشة وينتهي بقاعدة خشبية مدخنة فاخرة تجعله الخيار الأول للشخصيات القيادية.',
                 top: "الأناناس الملكي، التفاح الأخضر، الكشمش الأسود",
                 heart: "خشب البتولا، الياسمين المغربي، الورد",
                 base: "مسك فاخر، عنبر الحوت، وخشب الصندل"
             },
-            '1 Million': {
+            { 
+                name: '1 Million', 
+                size: '50 مل - Eau de Parfum',
+                price: 250, 
+                qty: 0, 
+                image: 'perfume-50ml.jpg',
+                description: 'عطر الفخامة والجرأة بلمسة شرقية حارة وجذابة. مصمم خصيصاً للسهرات والمناسبات الخاصة ليترك أثراً دافئاً ومغرياً يلفت الأنظار من اللحظة الأولى.',
                 top: "الجريب فروت، النعناع الطازج، والماندرين الدموي",
                 heart: "الورد، القرفة الحارة، والتوابل الفاخرة",
                 base: "الجلد الأبيض، العنبر، وخشب الأكاشيا"
             },
-            'Labri': {
+            { 
+                name: 'Labri', 
+                size: '50 مل - Eau de Parfum',
+                price: 250, 
+                qty: 0, 
+                image: 'لبري.jpg',
+                description: 'عطر الحرية والأنوثة العصرية المشرقة. تناغم ساحر بين نعومة اللافندر الفرنسي ودفء زهر البرتقال والفانيليا، ليمنحك إحساساً بالثقة والتألق طوال اليوم.',
                 top: "اللافندر الفرنسي، المندرين، والكشمش الأسود",
                 heart: "زهر البرتقال وزهر الياسمين النقية",
                 base: "فانيليا مدغشقر، المسك الأبيض، وخشب الأرز"
             },
-            'Intense': {
+            { 
+                name: 'Intense', 
+                size: '50 مل - Eau de Parfum',
+                price: 250, 
+                qty: 0, 
+                image: 'perfume-50ml.jpg',
+                description: 'عطر الكثافة والفوحان العالي لعشاق العطور العميقة والثابتة. مزيج راقٍ من السوسن الإيطالي والأخشاب الدافئة يضمن لك ثباتاً استثنائياً لساعات طويلة.',
                 top: "السوسن الإيطالي ولمسات الميموزا الفاخرة",
                 heart: "نبات الأمبريت بفوحان عالي وعبير الخزامى",
                 base: "خشب الأرز والجلود الفاخرة ذات الثبات العالي"
             },
-            'Good Girl': {
+            { 
+                name: 'Good Girl', 
+                size: '50 مل - Eau de Parfum',
+                price: 250, 
+                qty: 0, 
+                image: 'جودجيرل.jpg',
+                description: 'عطر السحر والغموض والأنوثة الجذابة. يجمع بين إشراقة الياسمين الأبيض وعمق الكاكاو وحبوب التونكا والقهوة ليخلق رائحة آسرة لا تُنسى.',
                 top: "اللوز، القهوة الفاخرة، والبرغموت",
                 heart: "مسك الروم، الياسمين السامباك، والسامباك النقية",
                 base: "حبوب التونكا، الكاكاو الغني، الفانيليا، وخشب الصندل"
             },
-            'Harmony': {
+            { 
+                name: 'Harmony', 
+                size: '50 مل - إصدار AURA الخاص',
+                price: 250, 
+                qty: 0, 
+                image: 'هارموني.jpg',
+                description: 'توقيع AURA الحصري والمميز. تركيبة سرية استثنائية صُممت بعناية فائقة لتمنحك طابعاً فريداً من الفخامة والانسجام العطري الذي يميزك عن الجميع.',
                 special: "✨ عطر AURA الخاص الحصري<br>تركيبة سرية استثنائية تم تجميعها بعناية فائقة لتمنحك طابعاً خاصاً من التميز والفوحان الملكي الذي لا يُشبه أحداً."
             }
-        };
+        ];
 
-        function showNotesModal(name) {
-            const info = perfumeNotesInfo[name];
-            const titleEl = document.getElementById('notesTitle');
-            const bodyEl = document.getElementById('notesBody');
+        // متغيرات التحكم في صفحة المنتج المفتوحة حالياً
+        let activeProduct = null; // { type: 'perfume' | 'box', id: index | 'mens' | 'womens' }
+        let detailPageQty = 1;
 
-            titleEl.innerText = `النوتات العطرية - ${name}`;
+        function openProductPage(type, id) {
+            activeProduct = { type, id };
+            detailPageQty = 1;
+            document.getElementById('ppQtyDisplay').innerText = detailPageQty;
 
-            if (info.special) {
-                bodyEl.innerHTML = `<div class="note-row" style="text-align:center; color:#ddd; padding: 10px 0;">${info.special}</div>`;
-            } else {
-                bodyEl.innerHTML = `
-                    <div class="note-row">
-                        <strong>🍃 إفتتاحية العطر (القمة):</strong>
-                        ${info.top}
-                    </div>
-                    <div class="note-row">
-                        <strong>🌸 قلب العطر (الوسط):</strong>
-                        ${info.heart}
-                    </div>
-                    <div class="note-row">
-                        <strong>🪵 قاعدة العطر (الثبات والفوحان):</strong>
-                        ${info.base}
-                    </div>
-                `;
+            const imgEl = document.getElementById('ppImage');
+            const sizeEl = document.getElementById('ppSize');
+            const priceEl = document.getElementById('ppPrice');
+            const titleEl = document.getElementById('ppTitle');
+            const descEl = document.getElementById('ppDescription');
+            const notesContainer = document.getElementById('ppNotesContainer');
+            const notesBody = document.getElementById('ppNotesBody');
+
+            if (type === 'perfume') {
+                const item = perfumesData[id];
+                imgEl.src = item.image;
+                sizeEl.innerText = `الحجم: ${item.size}`;
+                priceEl.innerText = `${item.price} ج.م`;
+                titleEl.innerText = item.name;
+                descEl.innerText = item.description;
+
+                notesContainer.style.display = 'block';
+                if (item.special) {
+                    notesContainer.querySelector('h4').innerText = '✨ الطابع العطري الخاص';
+                    notesBody.innerHTML = `<div class="pp-note-item" style="color:#ddd;">${item.special}</div>`;
+                } else {
+                    notesContainer.querySelector('h4').innerText = '✨ الهرم العطري والمكونات';
+                    notesBody.innerHTML = `
+                        <div class="pp-note-item"><strong>🍃 إفتتاحية العطر:</strong> ${item.top}</div>
+                        <div class="pp-note-item"><strong>🌸 قلب العطر:</strong> ${item.heart}</div>
+                        <div class="pp-note-item" style="margin-bottom:0;"><strong>🪵 قاعدة العطر:</strong> ${item.base}</div>
+                    `;
+                }
+            } else if (type === 'box') {
+                const box = boxesData[id];
+                imgEl.src = box.image;
+                sizeEl.innerText = `الحجم: ${box.size}`;
+                priceEl.innerText = `${box.price} ج.م`;
+                titleEl.innerText = box.name;
+                descEl.innerText = box.description;
+
+                notesContainer.style.display = 'block';
+                notesContainer.querySelector('h4').innerText = '📦 محتويات البوكس';
+                notesBody.innerHTML = `<div class="pp-note-item" style="color:#ddd; margin-bottom:0;">${box.includes}</div>`;
             }
 
-            document.getElementById('notesModal').style.display = 'flex';
+            const overlay = document.getElementById('productPageOverlay');
+            overlay.style.display = 'block';
+            overlay.scrollTop = 0;
         }
 
-        function closeNotesModal() {
-            document.getElementById('notesModal').style.display = 'none';
+        function closeProductPage() {
+            document.getElementById('productPageOverlay').style.display = 'none';
+            activeProduct = null;
+        }
+
+        function changeDetailQty(delta) {
+            if (detailPageQty + delta >= 1) {
+                detailPageQty += delta;
+                document.getElementById('ppQtyDisplay').innerText = detailPageQty;
+            }
+        }
+
+        function addCurrentProductToCart() {
+            if (!activeProduct) return;
+
+            if (activeProduct.type === 'perfume') {
+                changePerfumeQty(activeProduct.id, detailPageQty);
+            } else if (activeProduct.type === 'box') {
+                const boxType = activeProduct.id;
+                changeBoxQty(boxType, detailPageQty);
+                closeProductPage();
+                // التمرير لقسم اختيار عطور البوكس لتسهيل التخصيص على العميل
+                const customSection = document.getElementById(boxType + 'Customization');
+                if (customSection) {
+                    customSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+
+            closeProductPage();
         }
 
         let selectedMensPerfumes = [];
@@ -1033,7 +1339,9 @@
                 if (boxesData[type].qty > 0) {
                     card.classList.add('active');
                     customBox.style.display = 'block';
-                    showToast(`تمت إضافة ${boxesData[type].name} للسلة`);
+                    if (change > 0) {
+                        showToast(`تمت إضافة ${boxesData[type].name} (${change}) للسلة`);
+                    }
                 } else {
                     card.classList.remove('active');
                     customBox.style.display = 'none';
@@ -1051,7 +1359,9 @@
                 const card = document.getElementById('card-perfume-' + index);
                 if (perfumesData[index].qty > 0) {
                     card.classList.add('active');
-                    showToast(`تمت إضافة عطر ${perfumesData[index].name} (50 مل)`);
+                    if (change > 0) {
+                        showToast(`تمت إضافة عطر ${perfumesData[index].name} (×${change}) للسلة`);
+                    }
                 } else {
                     card.classList.remove('active');
                 }
@@ -1210,12 +1520,16 @@
             }
 
             if (boxesData.mens.qty > 0 && selectedMensPerfumes.length < 3) {
+                closeProductPage();
                 showToast("برجاء اختيار 3 عطور كاملة للبوكس الرجالي!");
+                document.getElementById('mensCustomization').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
 
             if (boxesData.womens.qty > 0 && !selectedWomensHarmony) {
-                showToast("برجاء اختيار عطر Harmony للبوكس النسائي!");
+                closeProductPage();
+                showToast("برجاء اختيار العطر الثالث للبوكس النسائي!");
+                document.getElementById('womensCustomization').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
 
@@ -1354,7 +1668,7 @@
             let shippingCost = (city === 'cairo') ? 45 : (city === 'giza') ? 30 : 0;
 
             if (productsTotal >= 1500) {
-                shippingCost = 0; // شحن مجاني
+                shippingCost = 0;
             }
 
             if(city === 'cairo') {
