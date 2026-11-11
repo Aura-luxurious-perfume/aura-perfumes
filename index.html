@@ -56,9 +56,33 @@
         .subtitle {
             color: #888;
             font-size: 12px;
-            margin-bottom: 22px;
+            margin-bottom: 15px;
             letter-spacing: 1px;
         }
+        
+        /* شريط الثقة والمميزات (الإضافة رقم 2) */
+        .trust-badges {
+            display: flex;
+            justify-content: space-around;
+            background: #1b1b1b;
+            border: 1px solid var(--border-color);
+            padding: 8px 4px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 10px;
+            color: #ccc;
+        }
+        .trust-badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .trust-badge-item span {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
         .slider {
             position: relative;
             background: #1b1b1b;
@@ -122,6 +146,31 @@
             padding-bottom: 6px;
             font-weight: bold;
         }
+        
+        /* فلتر تصنيف العطور (الإضافة رقم 3) */
+        .category-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        .filter-btn {
+            background: #1b1b1b;
+            color: #aaa;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .filter-btn.active {
+            background: var(--gold);
+            color: #0b0b0b;
+            font-weight: bold;
+            border-color: var(--gold);
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -331,6 +380,7 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
             text-align: right;
+            position: relative;
         }
         .pp-header {
             display: flex;
@@ -364,6 +414,22 @@
             letter-spacing: 2px;
             font-size: 14px;
         }
+        
+        /* زر مشاركة المنتج (الإضافة رقم 1) */
+        .pp-share-btn {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .pp-image-wrapper {
             width: 100%;
             border-radius: 14px;
@@ -762,6 +828,22 @@
         <h1>A U R A</h1>
         <div class="subtitle">عطور الفخامة الاستثنائية</div>
 
+        <!-- شريط الثقة والمميزات (الإضافة رقم 2) -->
+        <div class="trust-badges">
+            <div class="trust-badge-item">
+                <span>🚚 شحن سريع</span>
+                لجميع المحافظات
+            </div>
+            <div class="trust-badge-item">
+                <span>🛡️ ضمان الثبات</span>
+                جودة عالية تدوم طويلاً
+            </div>
+            <div class="trust-badge-item">
+                <span>💯 مطابقة تامة</span>
+                نفس الفخامة الأصلية
+            </div>
+        </div>
+
         <div class="slider">
             <div class="slides-container" id="sliderContainer">
                 <div class="slide" onclick="openProductPage('box', 'mens')">
@@ -835,8 +917,17 @@
         </div>
 
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
-        <div class="grid">
-            <div class="perfume-card" id="card-perfume-0">
+        
+        <!-- فلتر تصنيف العطور (الإضافة رقم 3) -->
+        <div class="category-filters">
+            <button class="filter-btn active" onclick="filterPerfumes('all', this)">الكل</button>
+            <button class="filter-btn" onclick="filterPerfumes('mens', this)">رجالي</button>
+            <button class="filter-btn" onclick="filterPerfumes('womens', this)">نسائي</button>
+            <button class="filter-btn" onclick="filterPerfumes('unisex', this)">خاص / للجنسين</button>
+        </div>
+
+        <div class="grid" id="perfumesGrid">
+            <div class="perfume-card" id="card-perfume-0" data-category="mens">
                 <img src="perfume-50ml.jpg" alt="Sauvage" onclick="openProductPage('perfume', 0)">
                 <h4 onclick="openProductPage('perfume', 0)">Sauvage</h4>
                 <p>انتعاش وهيبة</p>
@@ -848,7 +939,7 @@
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(0, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-perfume-1">
+            <div class="perfume-card" id="card-perfume-1" data-category="mens">
                 <img src="perfume-50ml.jpg" alt="Aventus" onclick="openProductPage('perfume', 1)">
                 <h4 onclick="openProductPage('perfume', 1)">Aventus</h4>
                 <p>ملكي وثابت</p>
@@ -860,7 +951,7 @@
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(1, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-perfume-2">
+            <div class="perfume-card" id="card-perfume-2" data-category="mens">
                 <img src="perfume-50ml.jpg" alt="1 Million" onclick="openProductPage('perfume', 2)">
                 <h4 onclick="openProductPage('perfume', 2)">1 Million</h4>
                 <p>عبق الفخامة</p>
@@ -872,7 +963,7 @@
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(2, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-perfume-3">
+            <div class="perfume-card" id="card-perfume-3" data-category="womens">
                 <img src="لبري.jpg" alt="Labri" onclick="openProductPage('perfume', 3)">
                 <h4 onclick="openProductPage('perfume', 3)">Labri</h4>
                 <p>رشة منعشة ومشرقة من اللافندر</p>
@@ -884,7 +975,7 @@
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(3, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-perfume-4">
+            <div class="perfume-card" id="card-perfume-4" data-category="mens">
                 <img src="perfume-50ml.jpg" alt="Intense" onclick="openProductPage('perfume', 4)">
                 <h4 onclick="openProductPage('perfume', 4)">Intense</h4>
                 <p>فوحان عالي</p>
@@ -896,7 +987,7 @@
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(4, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-perfume-5">
+            <div class="perfume-card" id="card-perfume-5" data-category="womens">
                 <img src="جودجيرل.jpg" alt="Good Girl" onclick="openProductPage('perfume', 5)">
                 <h4 onclick="openProductPage('perfume', 5)">Good Girl</h4>
                 <p>سحر وأنوثة</p>
@@ -908,7 +999,7 @@
                     <button class="qty-btn" type="button" onclick="changePerfumeQty(5, 1)">+</button>
                 </div>
             </div>
-            <div class="perfume-card" id="card-perfume-6" style="grid-column: span 2;">
+            <div class="perfume-card" id="card-perfume-6" data-category="unisex" style="grid-column: span 2;">
                 <img src="هارموني.jpg" alt="Harmony" style="height: 130px;" onclick="openProductPage('perfume', 6)">
                 <h4 onclick="openProductPage('perfume', 6)">Harmony</h4>
                 <p>عطر AURA الخاص الفاخر</p>
@@ -948,6 +1039,11 @@
                 <button type="button" class="pp-back-btn" onclick="closeProductPage()">→ رجوع للمتجر</button>
                 <span class="pp-brand-tag">A U R A</span>
             </div>
+
+            <!-- زر مشاركة المنتج عبر واتساب (الإضافة رقم 1) -->
+            <button type="button" class="pp-share-btn" onclick="shareCurrentProduct()">
+                🔗 مشاركة المنتج مع أصدقائك
+            </button>
 
             <div class="pp-image-wrapper">
                 <img id="ppImage" src="" alt="صورة المنتج">
@@ -1127,6 +1223,21 @@
             showSlide(slideIndex);
         }, 4000);
 
+        // وظيفة فلتر العطور (الإضافة رقم 3)
+        function filterPerfumes(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('#perfumesGrid .perfume-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
         let boxesData = {
             mens: { 
                 name: "البوكس الرجالي الفاخر", 
@@ -1226,8 +1337,7 @@
             }
         ];
 
-        // متغيرات التحكم في صفحة المنتج المفتوحة حالياً
-        let activeProduct = null; // { type: 'perfume' | 'box', id: index | 'mens' | 'womens' }
+        let activeProduct = null; 
         let detailPageQty = 1;
 
         function openProductPage(type, id) {
@@ -1286,6 +1396,21 @@
             activeProduct = null;
         }
 
+        // وظيفة مشاركة المنتج عبر واتساب (الإضافة رقم 1)
+        function shareCurrentProduct() {
+            if (!activeProduct) return;
+            let productName = activeProduct.type === 'perfume' ? perfumesData[activeProduct.id].name : boxesData[activeProduct.id].name;
+            let productPrice = activeProduct.type === 'perfume' ? perfumesData[activeProduct.id].price : boxesData[activeProduct.id].price;
+            
+            let shareText = `✨ شفت العطر الفخم ده من متجر AURA؟\n` +
+                            `📌 *${productName}*\n` +
+                            `💰 *السعر:* ${productPrice} ج.م\n` +
+                            `أنصحك تجرب فخامة عطور AURA الاستثنائية! 🤍`;
+
+            let url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+            window.open(url, '_blank');
+        }
+
         function changeDetailQty(delta) {
             if (detailPageQty + delta >= 1) {
                 detailPageQty += delta;
@@ -1302,7 +1427,6 @@
                 const boxType = activeProduct.id;
                 changeBoxQty(boxType, detailPageQty);
                 closeProductPage();
-                // التمرير لقسم اختيار عطور البوكس لتسهيل التخصيص على العميل
                 const customSection = document.getElementById(boxType + 'Customization');
                 if (customSection) {
                     customSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1691,7 +1815,7 @@
             let myWhatsApp = "201109138404";
 
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
-                            `📞 *الهاتف:* ${phone}\n` +
+                            `📞 *الهاتف:* `${phone}\n` +
                             `📍 *العنوان:* ${addressDetails}\n\n`;
 
             if (giftNote) {
