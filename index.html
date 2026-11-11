@@ -60,7 +60,7 @@
             letter-spacing: 1px;
         }
         
-        /* شريط الثقة والمميزات (الإضافة رقم 2) */
+        /* شريط الثقة والمميزات */
         .trust-badges {
             display: flex;
             justify-content: space-around;
@@ -147,7 +147,7 @@
             font-weight: bold;
         }
         
-        /* فلتر تصنيف العطور (الإضافة رقم 3) */
+        /* فلتر تصنيف العطور */
         .category-filters {
             display: flex;
             gap: 8px;
@@ -415,7 +415,6 @@
             font-size: 14px;
         }
         
-        /* زر مشاركة المنتج (الإضافة رقم 1) */
         .pp-share-btn {
             background: rgba(212, 175, 55, 0.1);
             color: var(--gold);
@@ -828,7 +827,7 @@
         <h1>A U R A</h1>
         <div class="subtitle">عطور الفخامة الاستثنائية</div>
 
-        <!-- شريط الثقة والمميزات (الإضافة رقم 2) -->
+        <!-- شريط الثقة والمميزات -->
         <div class="trust-badges">
             <div class="trust-badge-item">
                 <span>🚚 شحن سريع</span>
@@ -918,7 +917,7 @@
 
         <div class="section-title">تشكيلة عطور 50 مل الفاخرة</div>
         
-        <!-- فلتر تصنيف العطور (الإضافة رقم 3) -->
+        <!-- فلتر تصنيف العطور -->
         <div class="category-filters">
             <button class="filter-btn active" onclick="filterPerfumes('all', this)">الكل</button>
             <button class="filter-btn" onclick="filterPerfumes('mens', this)">رجالي</button>
@@ -1032,7 +1031,7 @@
         </div>
     </div>
 
-    <!-- صفحة تفاصيل المنتج (تفتح عند الضغط على أي منتج) -->
+    <!-- صفحة تفاصيل المنتج -->
     <div class="product-page-overlay" id="productPageOverlay">
         <div class="product-page-container">
             <div class="pp-header">
@@ -1040,7 +1039,7 @@
                 <span class="pp-brand-tag">A U R A</span>
             </div>
 
-            <!-- زر مشاركة المنتج عبر واتساب (الإضافة رقم 1) -->
+            <!-- زر مشاركة المنتج عبر واتساب -->
             <button type="button" class="pp-share-btn" onclick="shareCurrentProduct()">
                 🔗 مشاركة المنتج مع أصدقائك
             </button>
@@ -1223,7 +1222,7 @@
             showSlide(slideIndex);
         }, 4000);
 
-        // وظيفة فلتر العطور (الإضافة رقم 3)
+        // وظيفة فلتر العطور
         function filterPerfumes(category, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -1396,7 +1395,7 @@
             activeProduct = null;
         }
 
-        // وظيفة مشاركة المنتج عبر واتساب (الإضافة رقم 1)
+        // وظيفة مشاركة المنتج عبر واتساب
         function shareCurrentProduct() {
             if (!activeProduct) return;
             let productName = activeProduct.type === 'perfume' ? perfumesData[activeProduct.id].name : boxesData[activeProduct.id].name;
@@ -1815,7 +1814,7 @@
             let myWhatsApp = "201109138404";
 
             let orderText = `*طلب جديد من موقع AURA* 🌟\n\n` +
-                            `📞 *الهاتف:* `${phone}\n` +
+                            `📞 *الهاتف:* ${phone}\n` +
                             `📍 *العنوان:* ${addressDetails}\n\n`;
 
             if (giftNote) {
